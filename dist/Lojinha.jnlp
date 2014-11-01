@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Lojinha.jnlp">
+  <information>
+    <title>Lojinha</title>
+    <vendor>pompeu</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <jfx:javafx-runtime version="8.0+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Lojinha.jar" size="34613" download="eager" />
+    <jar href="lib/antlr-2.7.7.jar" size="437548" download="eager" />
+    <jar href="lib/c3p0-0.9.2.1.jar" size="422423" download="eager" />
+    <jar href="lib/dom4j-1.6.1.jar" size="309995" download="eager" />
+    <jar href="lib/ehcache-core-2.4.3.jar" size="1007109" download="eager" />
+    <jar href="lib/hibernate-c3p0-4.3.1.Final.jar" size="39138" download="eager" />
+    <jar href="lib/hibernate-commons-annotations-4.0.4.Final.jar" size="75740" download="eager" />
+    <jar href="lib/hibernate-core-4.3.1.Final.jar" size="5188532" download="eager" />
+    <jar href="lib/hibernate-ehcache-4.3.1.Final.jar" size="134457" download="eager" />
+    <jar href="lib/hibernate-entitymanager-4.3.1.Final.jar" size="643750" download="eager" />
+    <jar href="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar" size="115983" download="eager" />
+    <jar href="lib/iText-5.0.5.jar" size="1599728" download="eager" />
+    <jar href="lib/javassist-3.18.1-GA.jar" size="702810" download="eager" />
+    <jar href="lib/jboss-logging-3.1.3.GA.jar" size="57523" download="eager" />
+    <jar href="lib/jboss-transaction-api_1.2_spec-1.0.0.Final.jar" size="28135" download="eager" />
+    <jar href="lib/mchange-commons-java-0.2.3.4.jar" size="584783" download="eager" />
+    <jar href="lib/postgresql-9.3-1102.jdbc41.jar" size="592322" download="eager" />
+    <jar href="lib/slf4j-api-1.6.1.jar" size="25734" download="eager" />
+    <jar href="lib/slf4j-simple-1.6.1.jar" size="7741" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Lojinha" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="lojinha.Main"  name="Lojinha" />
+  <update check="always"/>
+</jnlp>

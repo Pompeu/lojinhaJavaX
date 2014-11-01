@@ -1,0 +1,19 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+Button{
+    -fx-background-color: #5bc0de;
+    -fx-border-color: #46b8da;
+    -fx-border-radius: 100%;
+}
+Button:hover{ 
+    -fx-background-color: #31b0d5;
+    -fx-border-color: #269abc;
+    -fx-border-radius: 100%;
+}
+
+#AnchorPane {
+    -fx-background-color: steelblue;
+}

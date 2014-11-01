@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="694.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLClienteController">
+    <stylesheets>
+        <URL value="@fxmlclienteview.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="tfRazaSocial" layoutX="19.0" layoutY="98.0" prefHeight="25.0" prefWidth="536.0" />
+      <TextField fx:id="tfNomeFantasia" layoutX="19.0" layoutY="158.0" prefHeight="25.0" prefWidth="536.0" />
+      <TextField fx:id="tfCnpj" layoutX="19.0" layoutY="214.0" />
+      <TextField fx:id="tfLogradouro" layoutX="21.0" layoutY="269.0" prefHeight="25.0" prefWidth="536.0" />
+      <ComboBox fx:id="cbEstados" layoutX="201.0" layoutY="214.0" prefHeight="25.0" prefWidth="140.0" promptText="Estados" />
+      <Text layoutX="19.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rasao Social" />
+      <Text layoutX="19.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Fantasia" />
+      <Text layoutX="19.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CNPJ" />
+      <Label fx:id="iMenssage" layoutX="359.0" layoutY="217.0" prefHeight="15.0" prefWidth="211.0" />
+      <Button fx:id="btnSalvarEnderco" layoutX="19.0" layoutY="304.0" mnemonicParsing="false" text="Salvar Endereço" />
+      <Button fx:id="btnEdicatarEndereco" layoutX="154.0" layoutY="304.0" mnemonicParsing="false" text="Editar Endereço" />
+      <Button fx:id="btnDeletarEndereco" layoutX="288.0" layoutY="304.0" mnemonicParsing="false" text="Deletar Endereço" />
+      <Separator layoutX="18.0" layoutY="46.0" prefHeight="15.0" prefWidth="556.0" />
+      <Text layoutX="125.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadasto de Cliente">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tableEnderecos" layoutX="19.0" layoutY="368.0" prefHeight="88.0" prefWidth="435.0">
+        <columns>
+          <TableColumn prefWidth="347.0" text="Logradouro" />
+          <TableColumn prefWidth="89.0" text="Estado" />
+        </columns>
+      </TableView>
+      <Text layoutX="20.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço de Fornecedores">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="23.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logradouro" />
+      <Text layoutX="203.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
+      <TextField fx:id="tfDDD" layoutX="24.0" layoutY="488.0" prefHeight="25.0" prefWidth="53.0" />
+      <TextField fx:id="tfNumeroTelefone" layoutX="89.0" layoutY="487.0" />
+      <Button fx:id="btnSalvarTelefone" layoutX="20.0" layoutY="525.0" mnemonicParsing="false" text="Salvar Telefone" />
+      <Button fx:id="btnEdicatarTelefone" layoutX="155.0" layoutY="525.0" mnemonicParsing="false" text="Editar Telefone" />
+      <Button fx:id="btnDeletarTelefone" layoutX="289.0" layoutY="525.0" mnemonicParsing="false" text="Deletar Telefone" />
+      <TableView fx:id="tableTelefone" layoutX="17.0" layoutY="584.0" prefHeight="88.0" prefWidth="435.0">
+        <columns>
+          <TableColumn prefWidth="142.0" text="DDD" />
+          <TableColumn prefWidth="291.0" text="Numero" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnGravarCliente" layoutX="472.0" layoutY="646.0" mnemonicParsing="false" text="Gravar Cliente" />
+      <Text layoutX="20.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefone(s) de Cliente">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="29.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DDD" />
+      <Text layoutX="99.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero" />
+   </children>
+</AnchorPane>
