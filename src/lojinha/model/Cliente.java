@@ -6,7 +6,7 @@
 package lojinha.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,65 +14,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author pompeu
  */
 @Entity
-@Table(catalog = "fxlojinha", schema = "public", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"cnpj"})})
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findByPkcliente", query = "SELECT c FROM Cliente c WHERE c.pkcliente = :pkcliente"),
-    @NamedQuery(name = "Cliente.findByNomeFantasia", query = "SELECT c FROM Cliente c WHERE c.nomeFantasia = :nomeFantasia"),
-    @NamedQuery(name = "Cliente.findByRazaoSocial", query = "SELECT c FROM Cliente c WHERE c.razaoSocial = :razaoSocial"),
-    @NamedQuery(name = "Cliente.findByCnpj", query = "SELECT c FROM Cliente c WHERE c.cnpj = :cnpj")})
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(nullable = false)
+    @SequenceGenerator(name = "pkcliente", sequenceName = "cliente_pkcliente_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pkcliente")
+    @Column(name = "pkcliente", nullable = false)
     private Integer pkcliente;
     @Basic(optional = false)
-    @Column(name = "nome_fantasia", nullable = false, length = 80)
+    @Column(name = "nome_fantasia")
     private String nomeFantasia;
     @Basic(optional = false)
-    @Column(name = "razao_social", nullable = false, length = 80)
+    @Column(name = "razao_social")
     private String razaoSocial;
     @Basic(optional = false)
-    @Column(nullable = false, length = 14)
+    @Column(name = "cnpj")
     private String cnpj;
-    @JoinColumn(name = "fkendereco", referencedColumnName = "pkendereco", nullable = false)
-    @ManyToOne(optional = false)
-    private Endereco fkendereco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
-    private Collection<Telefone> telefoneCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
-    private Collection<Endereco> enderecoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
-    private Collection<Vendas> vendasCollection;
+    private List<TelefoneCliente> telefoneClienteList;
+    @OneToMany(mappedBy = "fkCliente")
+    private List<EnderecoCliente> enderecoClienteList;
 
     public Cliente() {
     }
 
-    public Cliente(Integer pkcliente) {
-        this.pkcliente = pkcliente;
-    }
-
-    public Cliente(Integer pkcliente, String nomeFantasia, String razaoSocial, String cnpj) {
-        this.pkcliente = pkcliente;
+    public Cliente(String cnpj,String nomeFantasia, String razaoSocial ) {
         this.nomeFantasia = nomeFantasia;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
@@ -110,39 +85,20 @@ public class Cliente implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public Endereco getFkendereco() {
-        return fkendereco;
+    public List<TelefoneCliente> getTelefoneClienteList() {
+        return telefoneClienteList;
     }
 
-    public void setFkendereco(Endereco fkendereco) {
-        this.fkendereco = fkendereco;
+    public void setTelefoneClienteList(List<TelefoneCliente> telefoneClienteList) {
+        this.telefoneClienteList = telefoneClienteList;
     }
 
-    @XmlTransient
-    public Collection<Telefone> getTelefoneCollection() {
-        return telefoneCollection;
+    public List<EnderecoCliente> getEnderecoClienteList() {
+        return enderecoClienteList;
     }
 
-    public void setTelefoneCollection(Collection<Telefone> telefoneCollection) {
-        this.telefoneCollection = telefoneCollection;
-    }
-
-    @XmlTransient
-    public Collection<Endereco> getEnderecoCollection() {
-        return enderecoCollection;
-    }
-
-    public void setEnderecoCollection(Collection<Endereco> enderecoCollection) {
-        this.enderecoCollection = enderecoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Vendas> getVendasCollection() {
-        return vendasCollection;
-    }
-
-    public void setVendasCollection(Collection<Vendas> vendasCollection) {
-        this.vendasCollection = vendasCollection;
+    public void setEnderecoClienteList(List<EnderecoCliente> enderecoClienteList) {
+        this.enderecoClienteList = enderecoClienteList;
     }
 
     @Override
@@ -169,5 +125,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "lojinha.model.Cliente[ pkcliente=" + pkcliente + " ]";
     }
-    
+
 }

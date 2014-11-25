@@ -14,15 +14,11 @@ import java.util.List;
  */
 public interface ICRUD<T> {
 
-    public T create(T obj);
+    public void create(T obj);
 
-    public T update(T obj);
-
-    public T delete(T obj);
+    public void delete(T obj);
 
     public List<T> retrivetAll();
-
-    public List<T> retrivetAllbyName(String name);
 
     public T retrivetbyId(long Id);
 }
