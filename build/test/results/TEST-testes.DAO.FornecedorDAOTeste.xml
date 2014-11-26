@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="pompeu-System-Product-Name" name="testes.DAO.ClienteDAOteste" skipped="0" tests="2" time="1.585" timestamp="2014-11-25T06:54:06">
+<testsuite errors="1" failures="0" hostname="pompeu-System-Product-Name" name="testes.DAO.FornecedorDAOTeste" skipped="0" tests="1" time="0.076" timestamp="2014-11-26T13:20:42">
   <properties>
     <property name="netbeans.autoupdate.country" value="PT" />
     <property name="javax.xml.parsers.SAXParserFactory" value="com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl" />
@@ -8,7 +8,7 @@
     <property name="manifest.custom.codebase" value="*" />
     <property name="libs.JasperReports.javadoc" value="" />
     <property name="libs.junit.javadoc" value="/home/pompeu/netbeans-8.0.1/java/docs/junit-3.8.2-api.zip" />
-    <property name="javac.includes" value="testes/DAO/ClienteDAOteste.java" />
+    <property name="javac.includes" value="testes/DAO/FornecedorDAOTeste.java" />
     <property name="ant.core.lib" value="/home/pompeu/netbeans-8.0.1/extide/ant/lib/ant.jar" />
     <property name="javadoc.windowtitle" value="" />
     <property name="javafx.preloader.enabled" value="false" />
@@ -51,7 +51,7 @@
     <property name="ant.file.Lojinha-impl" value="/home/pompeu/NetBeansProjects/lojinhaJavaX/nbproject/build-impl.xml" />
     <property name="javax.xml.datatype.DatatypeFactory" value="com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner testes.DAO.ClienteDAOteste skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/pompeu/NetBeansProjects/lojinhaJavaX/build/test/results/TEST-testes.DAO.ClienteDAOteste.xml crashfile=/home/pompeu/NetBeansProjects/lojinhaJavaX/build/junitvmwatcher1662171779445147586.properties propsfile=/home/pompeu/NetBeansProjects/lojinhaJavaX/build/junit3422939465422255518.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner testes.DAO.FornecedorDAOTeste skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/pompeu/NetBeansProjects/lojinhaJavaX/build/test/results/TEST-testes.DAO.FornecedorDAOTeste.xml crashfile=/home/pompeu/NetBeansProjects/lojinhaJavaX/build/junitvmwatcher8851481924507706107.properties propsfile=/home/pompeu/NetBeansProjects/lojinhaJavaX/build/junit7026190251659052360.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -72,7 +72,7 @@
     <property name="build.compiler.emacs" value="true" />
     <property name="javafx.deploy.includeDT" value="true" />
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed" />
-    <property name="test.includes" value="testes/DAO/ClienteDAOteste.java" />
+    <property name="test.includes" value="testes/DAO/FornecedorDAOTeste.java" />
     <property name="netbeans.dynamic.classpath" value="/home/pompeu/netbeans-8.0.1/platform/core/org-openide-filesystems.jar:/home/pompeu/netbeans-8.0.1/platform/core/core.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/core_pt_BR.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/core_zh_CN.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/org-openide-filesystems_ja.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/org-openide-filesystems_pt_BR.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/org-openide-filesystems_zh_CN.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/org-openide-filesystems_ru.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/core_ru.jar:/home/pompeu/netbeans-8.0.1/platform/core/locale/core_ja.jar:/home/pompeu/netbeans-8.0.1/nb/core/org-netbeans-upgrader.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/core_nb_ja.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/org-netbeans-upgrader_ru.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/core_nb_pt_BR.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/core_nb_zh_CN.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/core_nb.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/org-netbeans-upgrader_ja.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/org-netbeans-upgrader_zh_CN.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/core_nb_ru.jar:/home/pompeu/netbeans-8.0.1/nb/core/locale/org-netbeans-upgrader_pt_BR.jar" />
     <property name="jnlp.enabled" value="false" />
     <property name="java.vm.specification.version" value="1.8" />
@@ -88,7 +88,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="/" />
-    <property name="javac.includesfile.binary" value="/home/pompeu/NetBeansProjects/lojinhaJavaX/null45258969" />
+    <property name="javac.includesfile.binary" value="/home/pompeu/NetBeansProjects/lojinhaJavaX/null927821431" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="javac.test.processorpath" value="/usr/lib/jvm/java-8-oracle/jre/lib/javaws.jar:/usr/lib/jvm/java-8-oracle/jre/lib/deploy.jar:/usr/lib/jvm/java-8-oracle/jre/lib/plugin.jar:/home/pompeu/NetBeansProjects/postgresql-9.3-1102.jdbc41.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/eclipselink.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar:build/classes:/home/pompeu/netbeans-8.0.1/platform/modules/ext/junit-4.10.jar" />
     <property name="netbeans.buildnumber" value="201408251540" />
@@ -99,7 +99,7 @@
     <property name="libs.junit.classpath" value="/home/pompeu/netbeans-8.0.1/java/modules/ext/junit-3.8.2.jar" />
     <property name="libs.hibernate4-persistencemodelgen.javadoc" value="" />
     <property name="libs.jaxb.javadoc" value="/home/pompeu/netbeans-8.0.1/ide/docs/jaxb-api-doc.zip" />
-    <property name="javac.includes.binary" value="/home/pompeu/NetBeansProjects/lojinhaJavaX/build/test/classes/testes/DAO/ClienteDAOteste.class" />
+    <property name="javac.includes.binary" value="/home/pompeu/NetBeansProjects/lojinhaJavaX/build/test/classes/testes/DAO/FornecedorDAOTeste.class" />
     <property name="ant.home" value="/home/pompeu/netbeans-8.0.1/extide/ant" />
     <property name="libs.junit_4.src" value="/home/pompeu/netbeans-8.0.1/java/docs/junit-4.10-sources.jar" />
     <property name="javafx.run.height" value="600" />
@@ -231,7 +231,6 @@
     <property name="libs.CopyLibs.maven-pom" value="" />
     <property name="libs.spring-framework300.javadoc" value="" />
     <property name="libs.absolutelayout.javadoc" value="" />
-    <property name="guice.disable.misplaced.annotation.check" value="true" />
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
     <property name="libs.javac-api.classpath" value="/home/pompeu/netbeans-8.0.1/java/modules/ext/nb-javac-api.jar" />
@@ -282,7 +281,6 @@
     <property name="javafx.enable.concurrent.external.runs" value="false" />
     <property name="javafx.deploy.embedJNLP" value="true" />
     <property name="dist.dir" value="dist" />
-    <property name="securerandom.source" value="file:/dev/./urandom" />
     <property name="testng.debug.mode" value="" />
     <property name="javac.fork" value="false" />
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
@@ -320,8 +318,8 @@
     <property name="libs.JAXB-ENDORSED.classpath" value="/home/pompeu/netbeans-8.0.1/ide/modules/ext/jaxb/api/jaxb-api.jar" />
     <property name="nb.internal.action.name" value="run.single" />
     <property name="libs.eclipselink.classpath" value="/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/eclipselink.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
     <property name="libs.beans-binding.javadoc" value="/home/pompeu/netbeans-8.0.1/java/docs/beansbinding-1.2.1-doc.zip" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="libs.CopyLibs.classpath" value="/home/pompeu/netbeans-8.0.1/java/ant/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
     <property name="libs.spring-framework300.classpath" value="/home/pompeu/netbeans-8.0.1/ide/modules/org-apache-commons-logging.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/cglib-2.2.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-aop-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-aspects-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-beans-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-build-src-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-context-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-context-support-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-core-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-expression-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-framework-bom-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-instrument-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-instrument-tomcat-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-jdbc-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-jms-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-orm-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-oxm-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-struts-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-test-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-tx-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-web-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-webmvc-3.2.7.RELEASE.jar:/home/pompeu/netbeans-8.0.1/java/modules/ext/spring-3.0/spring-webmvc-portlet-3.2.7.RELEASE.jar" />
@@ -344,17 +342,14 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
   </properties>
-  <testcase classname="testes.DAO.ClienteDAOteste" name="deveAtualizarUCliente" time="0.001" />
-  <testcase classname="testes.DAO.ClienteDAOteste" name="deveGravarumClienteNoBanco" time="1.512" />
-  <system-out><![CDATA[[EL Info]: 2014-11-25 04:54:08.016--ServerSession(18276866)--EclipseLink, version: Eclipse Persistence Services - 2.5.2.v20140319-9ad6abd
-[EL Info]: connection: 2014-11-25 04:54:08.181--ServerSession(18276866)--file:/home/pompeu/NetBeansProjects/lojinhaJavaX/build/classes/_LojinhaPU login successful
-[EL Warning]: 2014-11-25 04:54:08.304--UnitOfWork(2670424)--Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.2.v20140319-9ad6abd): org.eclipse.persistence.exceptions.DatabaseException
-Internal Exception: org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "cliente_cnpj_key"
-  Detail: Key (cnpj)=(00001002000178) already exists.
-Error Code: 0
-Call: INSERT INTO CLIENTE (pkcliente, cnpj, nome_fantasia, razao_social) VALUES (?, ?, ?, ?)
-	bind => [4 parameters bound]
-Query: InsertObjectQuery(lojinha.model.Cliente[ pkcliente=23 ])
+  <testcase classname="testes.DAO.FornecedorDAOTeste" name="deveCriarUmFornecedorNoSistema" time="0.015">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at testes.DAO.FornecedorDAOTeste.deveCriarUmFornecedorNoSistema(FornecedorDAOTeste.java:63)
+</error>
+  </testcase>
+  <system-out><![CDATA[Fornecedor{pkfornecedores=null, razaoSocial=Algarelecom, cnpj=02003002000178, nomeFantasia=CTBC, telefonefornecedoresList=null, enderecofornecedorList=null}
+TelefoneFornecedor{ddd=64, numero=34442526, fkfornecedores=Fornecedor{pkfornecedores=null, razaoSocial=Algarelecom, cnpj=02003002000178, nomeFantasia=CTBC, telefonefornecedoresList=null, enderecofornecedorList=null}}
+EnderecoFornecedor{complemento=Prox, logradouro=tal num t, cidade=Uberlandia, bairro=centro, cep=73458963, estado=Minas_Gerais, fkfornecedores=Fornecedor{pkfornecedores=null, razaoSocial=Algarelecom, cnpj=02003002000178, nomeFantasia=CTBC, telefonefornecedoresList=null, enderecofornecedorList=null}}
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

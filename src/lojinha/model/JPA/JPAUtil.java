@@ -8,21 +8,20 @@ package lojinha.model.JPA;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.eclipse.persistence.jpa.config.Entity;
 
 /**
  *
  * @author pompeu
  */
 public class JPAUtil {
-    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("LojinhaPU");
-    private static final EntityManager EM = EMF.createEntityManager();
+    private final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("LojinhaPU");
+    
 
-    private JPAUtil() {
+    public JPAUtil() {
     }
     
-    public static EntityManager getManager(){
-        return EM;
+    public EntityManager getManager(){
+        return EMF.createEntityManager();
     }
     
 }

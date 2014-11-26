@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
     private String cnpj;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
     private List<TelefoneCliente> telefoneClienteList;
-    @OneToMany(mappedBy = "fkCliente")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "fkCliente")
     private List<EnderecoCliente> enderecoClienteList;
 
     public Cliente() {

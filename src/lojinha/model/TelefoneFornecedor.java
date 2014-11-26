@@ -22,32 +22,33 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 
-public class TelefoneCliente implements Serializable {
+public class TelefoneFornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @SequenceGenerator(name = "pktelefone", sequenceName = "telefone_pktelefone_seq", allocationSize = 1)
+    @SequenceGenerator(name = "pktelefone", sequenceName = "telefone_fornecedores_pktelefone_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pktelefone")
+    @Column(name = "pktelefone", nullable = false)
     @Basic(optional = false)
-    @Column(name = "pktelefone")
     private Integer pktelefone;
     @Basic(optional = false)
-    @Column(name = "ddd")
+    @Column(nullable = false, length = 3)
     private String ddd;
     @Basic(optional = false)
-    @Column(name = "numero")
+    @Column(nullable = false, length = 9)
     private String numero;
-    @JoinColumn(name = "fkcliente", referencedColumnName = "pkcliente")
-    @ManyToOne
-    private Cliente fkcliente;
+    @JoinColumn(name = "fkfornecedores", referencedColumnName = "pkfornecedores", nullable = false)
+    @ManyToOne(optional = false)
+    private Fornecedor fkFornecedor;
 
-    public TelefoneCliente() {
+    public TelefoneFornecedor() {
     }
 
-    public TelefoneCliente(String ddd, String numero, Cliente fkCliente) {
-        this.fkcliente = fkCliente;
+    public TelefoneFornecedor(String ddd, String numero, Fornecedor fkFornecedor) {
         this.ddd = ddd;
         this.numero = numero;
+        this.fkFornecedor = fkFornecedor;
     }
 
     public Integer getPktelefone() {
@@ -74,12 +75,12 @@ public class TelefoneCliente implements Serializable {
         this.numero = numero;
     }
 
-    public Cliente getFkcliente() {
-        return fkcliente;
+    public Fornecedor getFkfornecedores() {
+        return fkFornecedor;
     }
 
-    public void setFkcliente(Cliente fkcliente) {
-        this.fkcliente = fkcliente;
+    public void setFkfornecedores(Fornecedor fkFornecedor) {
+        this.fkFornecedor = fkFornecedor;
     }
 
     @Override
@@ -92,10 +93,10 @@ public class TelefoneCliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TelefoneCliente)) {
+        if (!(object instanceof TelefoneFornecedor)) {
             return false;
         }
-        TelefoneCliente other = (TelefoneCliente) object;
+        TelefoneFornecedor other = (TelefoneFornecedor) object;
         if ((this.pktelefone == null && other.pktelefone != null) || (this.pktelefone != null && !this.pktelefone.equals(other.pktelefone))) {
             return false;
         }
@@ -104,7 +105,9 @@ public class TelefoneCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "lojinha.model.TelefoneCliente[ pktelefone=" + pktelefone + " ]";
+        return "TelefoneFornecedor{" + "ddd=" + ddd + ", numero=" + numero + ", fkfornecedores=" + fkFornecedor + '}';
     }
+
+   
 
 }

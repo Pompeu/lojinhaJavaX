@@ -5,6 +5,9 @@
     <class>lojinha.model.TelefoneCliente</class>
     <class>lojinha.model.EnderecoCliente</class>
     <class>lojinha.model.Cliente</class>
+    <class>lojinha.model.EnderecoFornecedor</class>
+    <class>lojinha.model.Fornecedor</class>
+    <class>lojinha.model.TelefoneFornecedor</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/fxlojinha"/>

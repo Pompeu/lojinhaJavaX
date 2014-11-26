@@ -41,7 +41,7 @@ public class TestarConecao {
 
    @Test
    public void testarJPAUtilOnline(){
-       EntityManager em = JPAUtil.getManager();
-       assertEquals(JPAUtil.getManager(), em);
+       EntityManager em = new JPAUtil().getManager();
+       assertTrue(em != null);
    }
 }

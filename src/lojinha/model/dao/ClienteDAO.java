@@ -9,9 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import lojinha.model.Cliente;
-import lojinha.model.EnderecoCliente;
 import lojinha.model.JPA.JPAUtil;
-import lojinha.model.TelefoneCliente;
 
 /**
  *
@@ -22,18 +20,16 @@ public class ClienteDAO implements ICrudCliente {
     private final EntityManager em;
 
     public ClienteDAO() {
-        this.em = JPAUtil.getManager();
+        this.em = new JPAUtil().getManager();
+
     }
 
     @Override
-    public void create(Cliente cliente, EnderecoCliente enderecoCliente, TelefoneCliente telefoneCliente) {
+    public void create(Cliente cliente) {
         try {
             em.getTransaction().begin();
             if (cliente.getPkcliente() == null) {
-                em.persist(enderecoCliente);
-                em.persist(telefoneCliente);
                 em.persist(cliente);
-
             } else {
                 em.merge(cliente);
             }
@@ -46,10 +42,13 @@ public class ClienteDAO implements ICrudCliente {
     }
 
     @Override
-    public void delete(Cliente obj) {
+    public void delete(long id) {
+        Cliente c;
         try {
             em.getTransaction().begin();
-            em.remove(obj);
+            c = em.find(Cliente.class, id);
+            System.out.println(c.toString());
+            em.remove(c);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -67,7 +66,17 @@ public class ClienteDAO implements ICrudCliente {
 
     @Override
     public Cliente retrivetbyId(long id) {
-        return em.find(Cliente.class, id);
+        Cliente c = null;
+        try {
+            em.getTransaction().begin();
+            c = em.find(Cliente.class, id);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            em.close();
+        }
+        return c;
     }
 
 }

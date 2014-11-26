@@ -15,9 +15,9 @@ import lojinha.model.TelefoneCliente;
  * @author pompeu
  */
 public interface ICrudCliente {
-    public void create(Cliente  cliente, EnderecoCliente enderecoCliente, TelefoneCliente telefoneCliente);
+    public void create(Cliente  cliente);
 
-    public void delete(Cliente  cliente);
+    public void delete(long id);
 
     public List<Cliente> retrivetAll();
 
