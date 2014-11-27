@@ -27,9 +27,9 @@ public class TelefoneFornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "pktelefone", sequenceName = "telefone_fornecedores_pktelefone_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pktelefone")
-    @Column(name = "pktelefone", nullable = false)
+    @SequenceGenerator(name = "pktelefone_fornecedor", sequenceName = "telefone_fornecedores_pktelefone_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pktelefone_fornecedor")
+    @Column(name = "pktelefone_fornecedor", nullable = false)
     @Basic(optional = false)
     private Integer pktelefone;
     @Basic(optional = false)
@@ -38,7 +38,7 @@ public class TelefoneFornecedor implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 9)
     private String numero;
-    @JoinColumn(name = "fkfornecedores", referencedColumnName = "pkfornecedores", nullable = false)
+    @JoinColumn(name = "fkFornecedor", referencedColumnName = "pkfornecedores", nullable = false)
     @ManyToOne(optional = false)
     private Fornecedor fkFornecedor;
 
@@ -105,7 +105,7 @@ public class TelefoneFornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "TelefoneFornecedor{" + "ddd=" + ddd + ", numero=" + numero + ", fkfornecedores=" + fkFornecedor + '}';
+        return "TelefoneFornecedor{" + "ddd=" + ddd + ", numero=" + numero +'}';
     }
 
    

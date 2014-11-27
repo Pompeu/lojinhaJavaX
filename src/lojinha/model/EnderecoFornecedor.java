@@ -26,9 +26,9 @@ public class EnderecoFornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "pkendereco", sequenceName = "endereco_fornecedor_pkendereco_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pkendereco")
-    @Column(name = "pkendereco", nullable = false)
+    @SequenceGenerator(name = "pkendereco_fornecedor", sequenceName = "endereco_fornecedor_pkendereco_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pkendereco_fornecedor")
+    @Column(name = "pkendereco_fornecedor", nullable = false)
     @Basic(optional = false)
     private Integer pkendereco;
     @Basic(optional = false)
@@ -49,7 +49,7 @@ public class EnderecoFornecedor implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 80)
     private String estado;
-    @JoinColumn(name = "fkfornecedores", referencedColumnName = "pkfornecedores", nullable = false)
+    @JoinColumn(name = "fkFornecedor", referencedColumnName = "pkfornecedores", nullable = false)
     @ManyToOne(optional = false)
     private Fornecedor fkFornecedor;
 

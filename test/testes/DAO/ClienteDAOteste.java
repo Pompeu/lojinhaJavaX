@@ -7,10 +7,12 @@ package testes.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 
 import lojinha.model.Estados;
+import lojinha.model.JPA.JPAUtil;
 
 import lojinha.model.TelefoneCliente;
 import lojinha.model.dao.ClienteDAO;
@@ -20,6 +22,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -28,8 +31,8 @@ import org.junit.Test;
 public class ClienteDAOteste {
 
     private Cliente cliente;
-    private ICrudCliente clienteDAO;
-    private int i = 0;
+    
+    
     public ClienteDAOteste() {
     }
 
@@ -45,16 +48,16 @@ public class ClienteDAOteste {
     @Before
     public void setUp() {
         this.cliente = new Cliente("00001002000278", "lojinha doida", "lojinha doida LTDA");
-        this.clienteDAO = new ClienteDAO();
         
-        System.out.println(i++);
+        
+        
     }
 
     @After
     public void tearDown() {
     }
 
-    @Test(expected = RuntimeException.class)
+    //@Test(expected = RuntimeException.class)
     public void deveGravarumClienteNoBanco() {
 
         EnderecoCliente endereco = new EnderecoCliente("Rua Tal 1", Estados.Goias.name(), cliente);
@@ -78,21 +81,21 @@ public class ClienteDAOteste {
         telefones.add(telefone3);
 
         cliente.setTelefoneClienteList(telefones);
-
+        ICrudCliente clienteDAO = new ClienteDAO();
         clienteDAO = new ClienteDAO();
         clienteDAO.create(cliente);
 
     }
 
-    @Test
+   // @Test
     public void deveAtualizarUCliente() {
 
         EnderecoCliente endereco = new EnderecoCliente("Rua Tal 11", Estados.Goias.name(), cliente);
-        endereco.setPkendereco(5);
+        endereco.setPkendereco(95);
         EnderecoCliente endereco2 = new EnderecoCliente("Rua Tal 12", Estados.Minas_Gerais.name(), cliente);
-        endereco2.setPkendereco(6);
+        endereco2.setPkendereco(96);
         EnderecoCliente endereco3 = new EnderecoCliente("Rua Tal 23", Estados.Sao_Paulo.name(), cliente);
-        endereco3.setPkendereco(7);
+        endereco3.setPkendereco(97);
         List<EnderecoCliente> enderecos = new ArrayList<>();
         enderecos.add(endereco);
         enderecos.add(endereco2);
@@ -103,25 +106,39 @@ public class ClienteDAOteste {
         List<TelefoneCliente> telefones = new ArrayList<>();
 
         TelefoneCliente telefone = new TelefoneCliente("64", "34442222", cliente);
-        telefone.setPktelefone(5);
+        telefone.setPktelefone(95);
         TelefoneCliente telefone2 = new TelefoneCliente("62", "34443333", cliente);
-        telefone2.setPktelefone(6);
+        telefone2.setPktelefone(96);
         TelefoneCliente telefone3 = new TelefoneCliente("11", "34444444", cliente);
-        telefone3.setPktelefone(7);
+        telefone3.setPktelefone(97);
         telefones.add(telefone);
         telefones.add(telefone2);
         telefones.add(telefone3);
 
         cliente.setTelefoneClienteList(telefones);
-        cliente.setPkcliente(3);
-
-        clienteDAO = new ClienteDAO();
+        cliente.setPkcliente(32);
+        
+        ICrudCliente clienteDAO = new ClienteDAO();
+        
         clienteDAO.create(cliente);
     }
 
     @Test
-    public void deveDeletarUmCliente() {
+    public void deveRecuperaUmCliente() {
+        Cliente c = new Cliente();
+        c.setPkcliente(32);
+        ICrudCliente clienteDAO = new ClienteDAO();
+        c = clienteDAO.retrivetbyId(c);
+        assertEquals(c.getNomeFantasia(), "lojinha doida");
+        assertEquals(c.getCnpj(),"00001002000278");       
         
-        System.out.println(clienteDAO.retrivetbyId(3).toString());
+    }
+    
+    @Test
+    public void deveRecuperarTodos(){
+        ICrudCliente clienteDAO = new ClienteDAO();
+        List<Cliente> clientes = clienteDAO.retrivetAll();    
+        assertEquals(clientes.size(), 1);
+        assertEquals(clientes.get(0).getNomeFantasia(), "lojinha doida");
     }
 }

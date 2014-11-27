@@ -14,14 +14,14 @@ import javax.persistence.Persistence;
  * @author pompeu
  */
 public class JPAUtil {
-    private final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("LojinhaPU");
-    
+
+    private final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("lojinha");
 
     public JPAUtil() {
     }
-    
-    public EntityManager getManager(){
+
+    public EntityManager getManager() {
         return EMF.createEntityManager();
     }
-    
+
 }

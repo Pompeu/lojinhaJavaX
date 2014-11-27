@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testes.JPAUltil;
+package testes.DAO;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import lojinha.model.JPA.JPAUtil;
+import lojinha.model.Vendedor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,9 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author pompeu
  */
-public class TestarConecao {
+public class VendedorDAOTeste {
     
-    public TestarConecao() {
+    public VendedorDAOTeste() {
     }
     
     @BeforeClass
@@ -39,10 +41,14 @@ public class TestarConecao {
     public void tearDown() {
     }
 
-   @Test
-   public void testarJPAUtilOnline(){
-       EntityManager em = new JPAUtil().getManager();
-       
-       assertTrue(em != null);
-   }
+  @Test
+  public void deveCricarUmVendedor(){
+      Vendedor vendedor = new Vendedor("Pompeu", "00311920179", "011182");
+      EntityManager em = new JPAUtil().getManager();
+      em.getTransaction().begin();
+      em.persist(vendedor);
+      em.getTransaction().commit();
+      em.close();
+      assertTrue(!em.isOpen());
+  }
 }

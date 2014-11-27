@@ -20,8 +20,8 @@ public class ClienteDAO implements ICrudCliente {
     private final EntityManager em;
 
     public ClienteDAO() {
-        this.em = new JPAUtil().getManager();
 
+        this.em = new JPAUtil().getManager();
     }
 
     @Override
@@ -47,7 +47,6 @@ public class ClienteDAO implements ICrudCliente {
         try {
             em.getTransaction().begin();
             c = em.find(Cliente.class, id);
-            System.out.println(c.toString());
             em.remove(c);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -60,22 +59,18 @@ public class ClienteDAO implements ICrudCliente {
     @Override
     public List<Cliente> retrivetAll() {
         String consulta = "select c from Cliente c";
-        TypedQuery<Cliente> query = em.createQuery(consulta, Cliente.class);
+        TypedQuery<Cliente> query;
+
+        query = em.createQuery(consulta, Cliente.class);
+
         return query.getResultList();
     }
 
     @Override
-    public Cliente retrivetbyId(long id) {
-        Cliente c = null;
-        try {
-            em.getTransaction().begin();
-            c = em.find(Cliente.class, id);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            em.close();
-        }
+    public Cliente retrivetbyId(Cliente c) {
+
+        c = em.find(Cliente.class, c.getPkcliente());
+
         return c;
     }
 

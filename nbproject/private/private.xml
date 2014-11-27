@@ -3,10 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/ICrudCliente.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/JPA/JPAUtil.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/ClienteDAO.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/test/testes/DAO/ClienteDAOteste.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/controller/FXMLClienteController.java</file>
         </group>
     </open-files>
 </project-private>

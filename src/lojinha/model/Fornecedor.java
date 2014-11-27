@@ -16,8 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -126,9 +124,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "Fornecedor{" + "pkfornecedores=" + pkfornecedores + ", razaoSocial=" + razaoSocial + ", cnpj=" + cnpj + ", nomeFantasia=" + nomeFantasia + ", telefonefornecedoresList=" + telefonefornecedoresList + ", enderecofornecedorList=" + enderecofornecedorList + '}';
+        return "Fornecedor{" + "pkfornecedores=" + pkfornecedores + ", razaoSocial=" + razaoSocial + ", cnpj=" + cnpj + ", nomeFantasia=" + nomeFantasia + '}';
     }
-
-   
 
 }

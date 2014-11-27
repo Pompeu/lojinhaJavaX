@@ -7,8 +7,6 @@ package lojinha.model.dao;
 
 import java.util.List;
 import lojinha.model.Cliente;
-import lojinha.model.EnderecoCliente;
-import lojinha.model.TelefoneCliente;
 
 /**
  *
@@ -21,5 +19,5 @@ public interface ICrudCliente {
 
     public List<Cliente> retrivetAll();
 
-    public Cliente retrivetbyId(long Id);
+    public Cliente retrivetbyId(Cliente cliente);
 }

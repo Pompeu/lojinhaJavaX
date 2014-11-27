@@ -33,8 +33,8 @@
       </Text>
       <TableView fx:id="tableEnderecos" layoutX="19.0" layoutY="368.0" prefHeight="88.0" prefWidth="435.0">
         <columns>
-          <TableColumn prefWidth="347.0" text="Logradouro" />
-          <TableColumn prefWidth="89.0" text="Estado" />
+          <TableColumn fx:id="tcLogradouro" prefWidth="347.0" text="Logradouro" />
+          <TableColumn fx:id="tcEstado" prefWidth="89.0" text="Estado" />
         </columns>
       </TableView>
       <Text layoutX="20.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço de Fornecedores">
@@ -51,8 +51,8 @@
       <Button fx:id="btnDeletarTelefone" layoutX="289.0" layoutY="525.0" mnemonicParsing="false" text="Deletar Telefone" />
       <TableView fx:id="tableTelefone" layoutX="17.0" layoutY="584.0" prefHeight="88.0" prefWidth="435.0">
         <columns>
-          <TableColumn prefWidth="142.0" text="DDD" />
-          <TableColumn prefWidth="291.0" text="Numero" />
+          <TableColumn fx:id="tcDDD" prefWidth="142.0" text="DDD" />
+          <TableColumn fx:id="tcNumero" prefWidth="291.0" text="Numero" />
         </columns>
       </TableView>
       <Button fx:id="btnGravarCliente" layoutX="472.0" layoutY="646.0" mnemonicParsing="false" text="Gravar Cliente" />

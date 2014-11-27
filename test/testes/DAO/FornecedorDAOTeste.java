@@ -5,11 +5,14 @@
  */
 package testes.DAO;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
+import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneFornecedor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -50,18 +53,28 @@ public class FornecedorDAOTeste {
         f.setNomeFantasia("CTBC");
         f.setRazaoSocial("Algarelecom");
         TelefoneFornecedor tf = new TelefoneFornecedor("64", "34442526", f);
+        TelefoneFornecedor tf2 = new TelefoneFornecedor("63", "44263456", f);
         EnderecoFornecedor ef = new EnderecoFornecedor("Prox", "tal num t", "Uberlandia", "centro",
                 "73458963", Estados.Minas_Gerais.name(), f);
-
-//        f.getEnderecofornecedorList().add(ef);
-//        f.getTelefonefornecedoresList().add(tf);
         
-        System.out.println(f.toString());
-        System.out.println(tf.toString());
-        System.out.println(ef.toString());
         
-        assertEquals(f.getEnderecofornecedorList().size(), 1);
-        assertEquals(f.getTelefonefornecedoresList().size(), 1);
+        List<TelefoneFornecedor> telefoneFornecedors = new ArrayList<>();
+        List<EnderecoFornecedor> enderecoFornecedors = new ArrayList<>();
+        
+        telefoneFornecedors.add(tf);
+        telefoneFornecedors.add(tf2);
+        enderecoFornecedors.add(ef);
 
+        f.setTelefonefornecedoresList(telefoneFornecedors);
+        f.setEnderecofornecedorList(enderecoFornecedors);
+
+        assertEquals(2,f.getTelefonefornecedoresList().size());
+        assertEquals(1,f.getEnderecofornecedorList().size() );
+        
+        EntityManager em = new JPAUtil().getManager();
+        em.getTransaction().begin();
+        em.persist(f);
+        em.getTransaction().commit();
+        em.close();
     }
 }
