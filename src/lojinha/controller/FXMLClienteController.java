@@ -5,7 +5,6 @@
  */
 package lojinha.controller;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -22,9 +21,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
 import lojinha.model.TelefoneCliente;
+import lojinha.model.dao.ClienteDAO;
+import lojinha.model.dao.ICrudCliente;
 
 /**
  * FXML Controller class
@@ -32,7 +34,7 @@ import lojinha.model.TelefoneCliente;
  * @author pompeu
  */
 public class FXMLClienteController implements Initializable {
-
+    
     @FXML
     private TextField tfRazaSocial;
     @FXML
@@ -66,7 +68,7 @@ public class FXMLClienteController implements Initializable {
     private Button btnDeletarTelefone;
     @FXML
     private TableView<TelefoneCliente> tableTelefone;
-    private final ObservableList<TelefoneCliente> listaTelefones =  FXCollections.observableArrayList();
+    private final ObservableList<TelefoneCliente> listaTelefones = FXCollections.observableArrayList();
     @FXML
     private TableColumn tcDDD;
     @FXML
@@ -77,6 +79,7 @@ public class FXMLClienteController implements Initializable {
     private ComboBox cbEstados;
     @FXML
     private TextField tfDDD;
+    private Cliente cliete;
 
     /**
      * Initializes the controller class.
@@ -86,46 +89,83 @@ public class FXMLClienteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initItens();
+        initTableItens();
+        initActionItens();
+        
     }
-
-    private void initItens() {
-        cbEstados.setItems(FXCollections.observableArrayList(Estados.values()));
-
-        tcDDD.setCellValueFactory(new PropertyValueFactory("ddd"));
-        tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
-
-        tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
-        tcLogradouro.setCellValueFactory(new PropertyValueFactory("logradouro"));
-
-        tableEnderecos.setItems(listaEnderecos);
-        tableTelefone.setItems(listaTelefones);
-
+    
+    private void initActionItens() {
+        
         btnSalvarTelefone.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listaTelefones.add(new TelefoneCliente(tfDDD.getText(), tfNumeroTelefone.getText(),null));
+                if (verificaTelefonesRepetidos(tfDDD.getText(), tfNumeroTelefone.getText())) {
+                    listaTelefones.add(new TelefoneCliente(tfDDD.getText(), tfNumeroTelefone.getText(), cliete));
+                }
+                tfDDD.setText("");
+                tfNumeroTelefone.setText("");
+            }
+            
+            private boolean verificaTelefonesRepetidos(String ddd, String telefone) {
+                for (TelefoneCliente telefoneCliente : listaTelefones) {
+                    if (telefoneCliente.getDdd().equals(ddd)
+                            && telefoneCliente.getNumero().equals(telefone)) {
+                        return false;
+                    }
+                }
+                return true;
             }
         });
         
-        btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
-
+        btnDeletarTelefone.setOnAction(new EventHandler<ActionEvent>() {
+            
             @Override
             public void handle(ActionEvent event) {
-                listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), null));
+                listaTelefones.remove(tableTelefone.getSelectionModel().getSelectedItem());
             }
         });
-        tableTelefone.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
+        tableTelefone.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            
             @Override
             public void handle(MouseEvent event) {
-               tfDDD.setText(tableTelefone.getSelectionModel().getSelectedItem().getDdd());
-               tfNumeroTelefone.setText(tableTelefone.getSelectionModel().getSelectedItem().getNumero());
+                tfDDD.setText(tableTelefone.getSelectionModel().getSelectedItem().getDdd());
+                tfNumeroTelefone.setText(tableTelefone.getSelectionModel().getSelectedItem().getNumero());
             }
             
         });
-        tableEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
+        btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                if (verificaEnderecoRepetidos(tfLogradouro.getText(), cbEstados.getValue().toString())) {
+                    listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), cliete));
+                }
+                tfLogradouro.setText("");
+                cbEstados.setValue(null);
+            }
+            
+            
+            private boolean verificaEnderecoRepetidos(String logradouro, String estado) {
+                for (EnderecoCliente eCliente : listaEnderecos) {
+                    if (eCliente.getLogradouro().equals(logradouro) &&
+                            eCliente.getEstado().equals(estado)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+        });
+        btnDeletarEndereco.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                listaEnderecos.remove(tableEnderecos.getSelectionModel().getSelectedItem());
+            }
+        });
+        
+        tableEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            
             @Override
             public void handle(MouseEvent event) {
                 tfLogradouro.setText(tableEnderecos.getSelectionModel().getSelectedItem().getLogradouro());
@@ -133,5 +173,31 @@ public class FXMLClienteController implements Initializable {
             }
             
         });
+        btnGravarCliente.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                cliete = new Cliente(tfCnpj.getText(), tfNomeFantasia.getText(), tfRazaSocial.getText());
+                cliete.setEnderecoClienteList(listaEnderecos);
+                cliete.setTelefoneClienteList(listaTelefones);
+                
+                ICrudCliente crudCliente = new ClienteDAO();
+                crudCliente.create(cliete);
+            }
+        });
     }
+    
+    private void initTableItens() {
+        cbEstados.setItems(FXCollections.observableArrayList(Estados.values()));
+        
+        tcDDD.setCellValueFactory(new PropertyValueFactory("ddd"));
+        tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
+        
+        tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
+        tcLogradouro.setCellValueFactory(new PropertyValueFactory("logradouro"));
+        
+        tableEnderecos.setItems(listaEnderecos);
+        tableTelefone.setItems(listaTelefones);
+    }
+    
 }
