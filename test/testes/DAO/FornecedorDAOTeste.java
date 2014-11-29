@@ -5,15 +5,15 @@
  */
 package testes.DAO;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
-import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneFornecedor;
+import lojinha.model.dao.ClienteDAO;
+import lojinha.model.dao.ForncedorDAO;
+import lojinha.model.dao.ICRUD;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class FornecedorDAOTeste {
     public void tearDown() {
     }
 
-    @Test
+    
     public void deveCriarUmFornecedorNoSistema() {
         Fornecedor f = new Fornecedor();
         f.setCnpj("02003002000178");
@@ -71,10 +71,23 @@ public class FornecedorDAOTeste {
         assertEquals(2,f.getTelefonefornecedoresList().size());
         assertEquals(1,f.getEnderecofornecedorList().size() );
         
-        EntityManager em = new JPAUtil().getManager();
-        em.getTransaction().begin();
-        em.persist(f);
-        em.getTransaction().commit();
-        em.close();
+        ICRUD<Fornecedor> icrud = new ForncedorDAO();
+        icrud.create(f);
+    }
+    
+    @Test
+    public void deveRetornarUmFornecdor(){
+        ICRUD<Fornecedor> icrud = new ForncedorDAO();
+        Fornecedor f = icrud.retrivetbyId(3);
+        assertEquals(f.getNomeFantasia(), "CTBC");
+        
+    }
+    
+    @Test
+    public void deveRetornarTodosFornecedores(){
+         ICRUD<Fornecedor> icrud = new ForncedorDAO();
+         List<Fornecedor> fornecedors =icrud.retrivetAll();
+         
+         assertEquals(3, fornecedors.size());
     }
 }

@@ -26,7 +26,7 @@ import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
 import lojinha.model.TelefoneCliente;
 import lojinha.model.dao.ClienteDAO;
-import lojinha.model.dao.ICrudCliente;
+import lojinha.model.dao.ICRUD;
 
 /**
  * FXML Controller class
@@ -186,7 +186,7 @@ public class FXMLClienteController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
 
-                ICrudCliente crudCliente = new ClienteDAO();
+                ICRUD<Cliente> crudCliente = new ClienteDAO();
                 crudCliente.create(cliente);
                 
             }

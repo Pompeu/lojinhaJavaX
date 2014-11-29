@@ -7,16 +7,15 @@ package testes.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 
 import lojinha.model.Estados;
-import lojinha.model.JPA.JPAUtil;
 
 import lojinha.model.TelefoneCliente;
 import lojinha.model.dao.ClienteDAO;
-import lojinha.model.dao.ICrudCliente;
+import lojinha.model.dao.ICRUD;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,8 +30,7 @@ import static org.junit.Assert.*;
 public class ClienteDAOteste {
 
     private Cliente cliente;
-    
-    
+
     public ClienteDAOteste() {
     }
 
@@ -48,9 +46,7 @@ public class ClienteDAOteste {
     @Before
     public void setUp() {
         this.cliente = new Cliente("00001002000278", "lojinha doida", "lojinha doida LTDA");
-        
-        
-        
+
     }
 
     @After
@@ -81,13 +77,13 @@ public class ClienteDAOteste {
         telefones.add(telefone3);
 
         cliente.setTelefoneClienteList(telefones);
-        ICrudCliente clienteDAO = new ClienteDAO();
+        ICRUD<Cliente> clienteDAO = new ClienteDAO();
         clienteDAO = new ClienteDAO();
         clienteDAO.create(cliente);
 
     }
 
-   // @Test
+    // @Test
     public void deveAtualizarUCliente() {
 
         EnderecoCliente endereco = new EnderecoCliente("Rua Tal 11", Estados.Goias.name(), cliente);
@@ -117,28 +113,28 @@ public class ClienteDAOteste {
 
         cliente.setTelefoneClienteList(telefones);
         cliente.setPkcliente(32);
-        
-        ICrudCliente clienteDAO = new ClienteDAO();
-        
-        clienteDAO.create(cliente);
+
+        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+
+         clienteDAO.create(cliente);
+    }
+
+   @Test
+    public void deveRecuperaUmCliente() {
+        Cliente c;
+
+        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+        c = clienteDAO.retrivetbyId(32);
+        assertEquals(c.getNomeFantasia(), "lojinha doida");
+        assertEquals(c.getCnpj(), "00001002000278");
+
     }
 
     @Test
-    public void deveRecuperaUmCliente() {
-        Cliente c = new Cliente();
-        c.setPkcliente(32);
-        ICrudCliente clienteDAO = new ClienteDAO();
-        c = clienteDAO.retrivetbyId(c);
-        assertEquals(c.getNomeFantasia(), "lojinha doida");
-        assertEquals(c.getCnpj(),"00001002000278");       
-        
-    }
-    
-    @Test
-    public void deveRecuperarTodos(){
-        ICrudCliente clienteDAO = new ClienteDAO();
-        List<Cliente> clientes = clienteDAO.retrivetAll();    
-        assertEquals(clientes.size(), 1);
-        assertEquals(clientes.get(0).getNomeFantasia(), "lojinha doida");
+    public void deveRecuperarTodos() {
+        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+        List<Cliente> clientes = clienteDAO.retrivetAll();
+        assertEquals(clientes.size(), 2);
+        assertEquals(clientes.get(1).getNomeFantasia(), "lojinha doida");
     }
 }

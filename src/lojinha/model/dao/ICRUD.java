@@ -20,5 +20,5 @@ public interface ICRUD<T> {
 
     public List<T> retrivetAll();
 
-    public T retrivetbyId(long Id);
+    public T retrivetbyId(Integer id);
 }

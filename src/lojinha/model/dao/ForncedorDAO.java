@@ -8,30 +8,29 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import lojinha.model.Cliente;
+import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 
 /**
  *
  * @author pompeu
  */
-public class ClienteDAO implements ICRUD<Cliente> {
+public class ForncedorDAO implements ICRUD<Fornecedor> {
 
     private final EntityManager em;
 
-    public ClienteDAO() {
-
-        this.em = new JPAUtil().getManager();
+    public ForncedorDAO() {
+        em = new JPAUtil().getManager();
     }
 
     @Override
-    public void create(Cliente cliente) {
+    public void create(Fornecedor obj) {
         try {
             em.getTransaction().begin();
-            if (cliente.getPkcliente() == null) {
-                em.persist(cliente);
+            if (obj.getPkfornecedores() == null) {
+                em.persist(obj);
             } else {
-                em.merge(cliente);
+                em.merge(obj);
             }
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -42,12 +41,10 @@ public class ClienteDAO implements ICRUD<Cliente> {
     }
 
     @Override
-    public void delete(Cliente c) {
-
+    public void delete(Fornecedor obj) {
         try {
             em.getTransaction().begin();
-            c = em.find(Cliente.class, c.getPkcliente());
-            em.remove(c);
+            em.remove(obj);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -57,17 +54,18 @@ public class ClienteDAO implements ICRUD<Cliente> {
     }
 
     @Override
-    public List<Cliente> retrivetAll() {
-        String consulta = "select c from Cliente c";
-        TypedQuery<Cliente> query;
+    public List<Fornecedor> retrivetAll() {
+        String consulta = "select f from Fornecedor f";
+        TypedQuery<Fornecedor> query;
 
-        query = em.createQuery(consulta, Cliente.class);
+        query = em.createQuery(consulta, Fornecedor.class);
 
         return query.getResultList();
     }
 
-    
-    public Cliente retrivetbyId(Integer id) {
-        return em.find(Cliente.class, id);
+    @Override
+    public Fornecedor retrivetbyId(Integer id) {
+        return em.find(Fornecedor.class, id);
     }
+
 }
