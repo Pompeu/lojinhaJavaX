@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.MainFXMLController">
+    <stylesheets>
+        <URL value="@fxmlclienteview.css" />
+    </stylesheets>
+    <children>
+        <MenuBar layoutX="3.0" layoutY="2.0">
+            <menus>
+                <Menu fx:id="mCadastro" mnemonicParsing="false" text="Cadastrar">
+                    <items>
+                        <MenuItem fx:id="mFechar" mnemonicParsing="false" text="Fechar" />
+                        <Menu fx:id="mCadastros" mnemonicParsing="false" text="Cadastros">
+                            <items>
+                                <MenuItem fx:id="mCadCliente" mnemonicParsing="false" text="Cliente" />
+                                <MenuItem fx:id="mCadVendedor" mnemonicParsing="false" text="Vendedor" />
+                                <MenuItem fx:id="mCadFornecedor" mnemonicParsing="false" text="Fornecedor" />
+                                <MenuItem fx:id="mCadProduto" mnemonicParsing="false" text="Produto" />
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+                <Menu fx:id="mMovimentacao" mnemonicParsing="false" text="Movimentaçao">
+                    <items>
+                        <MenuItem fx:id="mBuscas" mnemonicParsing="false" text="Buscar" />
+                        <MenuItem fx:id="mVendas" mnemonicParsing="false" text="Vendas" />
+                    </items>
+                </Menu>
+                <Menu fx:id="mAjuda" mnemonicParsing="false" text="Ajuda">
+                    <items>
+                        <MenuItem fx:id="mAbout" mnemonicParsing="false" text="Sobre" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
+</AnchorPane>

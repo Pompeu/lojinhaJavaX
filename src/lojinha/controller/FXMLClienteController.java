@@ -34,7 +34,7 @@ import lojinha.model.dao.ICrudCliente;
  * @author pompeu
  */
 public class FXMLClienteController implements Initializable {
-    
+
     @FXML
     private TextField tfRazaSocial;
     @FXML
@@ -79,7 +79,7 @@ public class FXMLClienteController implements Initializable {
     private ComboBox cbEstados;
     @FXML
     private TextField tfDDD;
-    private Cliente cliete;
+    private Cliente cliente;
 
     /**
      * Initializes the controller class.
@@ -91,21 +91,27 @@ public class FXMLClienteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTableItens();
         initActionItens();
-        
+
     }
-    
+
     private void initActionItens() {
-        
+        btnGravarCliente.setDisable(true);
+
         btnSalvarTelefone.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 if (verificaTelefonesRepetidos(tfDDD.getText(), tfNumeroTelefone.getText())) {
-                    listaTelefones.add(new TelefoneCliente(tfDDD.getText(), tfNumeroTelefone.getText(), cliete));
+                    listaTelefones.add(new TelefoneCliente(tfDDD.getText(), tfNumeroTelefone.getText(), cliente));
+                }
+                cliente.setTelefoneClienteList(listaTelefones);
+                if (listaTelefones.size() > 0) {
+                    btnGravarCliente.setDisable(false);
                 }
                 tfDDD.setText("");
                 tfNumeroTelefone.setText("");
             }
-            
+
             private boolean verificaTelefonesRepetidos(String ddd, String telefone) {
                 for (TelefoneCliente telefoneCliente : listaTelefones) {
                     if (telefoneCliente.getDdd().equals(ddd)
@@ -116,88 +122,88 @@ public class FXMLClienteController implements Initializable {
                 return true;
             }
         });
-        
+
         btnDeletarTelefone.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 listaTelefones.remove(tableTelefone.getSelectionModel().getSelectedItem());
             }
         });
         tableTelefone.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+
             @Override
             public void handle(MouseEvent event) {
                 tfDDD.setText(tableTelefone.getSelectionModel().getSelectedItem().getDdd());
                 tfNumeroTelefone.setText(tableTelefone.getSelectionModel().getSelectedItem().getNumero());
             }
-            
+
         });
         btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
+                cliente = new Cliente(tfCnpj.getText(), tfNomeFantasia.getText(), tfRazaSocial.getText());
                 if (verificaEnderecoRepetidos(tfLogradouro.getText(), cbEstados.getValue().toString())) {
-                    listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), cliete));
+                    listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), cliente));
                 }
+                cliente.setEnderecoClienteList(listaEnderecos);
+
                 tfLogradouro.setText("");
                 cbEstados.setValue(null);
             }
-            
-            
+
             private boolean verificaEnderecoRepetidos(String logradouro, String estado) {
                 for (EnderecoCliente eCliente : listaEnderecos) {
-                    if (eCliente.getLogradouro().equals(logradouro) &&
-                            eCliente.getEstado().equals(estado)) {
+                    if (eCliente.getLogradouro().equals(logradouro)
+                            && eCliente.getEstado().equals(estado)) {
                         return false;
                     }
                 }
                 return true;
             }
-            
+
         });
         btnDeletarEndereco.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 listaEnderecos.remove(tableEnderecos.getSelectionModel().getSelectedItem());
             }
         });
-        
+
         tableEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+
             @Override
             public void handle(MouseEvent event) {
                 tfLogradouro.setText(tableEnderecos.getSelectionModel().getSelectedItem().getLogradouro());
                 cbEstados.setValue(tableEnderecos.getSelectionModel().getSelectedItem().getEstado());
             }
-            
+
         });
         btnGravarCliente.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
-                cliete = new Cliente(tfCnpj.getText(), tfNomeFantasia.getText(), tfRazaSocial.getText());
-                cliete.setEnderecoClienteList(listaEnderecos);
-                cliete.setTelefoneClienteList(listaTelefones);
-                
+
                 ICrudCliente crudCliente = new ClienteDAO();
-                crudCliente.create(cliete);
+                crudCliente.create(cliente);
+                
             }
         });
     }
-    
+
     private void initTableItens() {
         cbEstados.setItems(FXCollections.observableArrayList(Estados.values()));
-        
+
         tcDDD.setCellValueFactory(new PropertyValueFactory("ddd"));
         tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
-        
+
         tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
         tcLogradouro.setCellValueFactory(new PropertyValueFactory("logradouro"));
-        
+
         tableEnderecos.setItems(listaEnderecos);
         tableTelefone.setItems(listaTelefones);
     }
-    
+
 }
