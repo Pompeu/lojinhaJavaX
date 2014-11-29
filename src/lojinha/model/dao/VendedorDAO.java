@@ -8,30 +8,28 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import lojinha.model.Cliente;
-import lojinha.model.JPA.JPAUtil;
+import lojinha.model.Vendedor;
 
 /**
  *
  * @author pompeu
  */
-public class ClienteDAO implements ICRUD<Cliente> {
+public class VendedorDAO implements ICRUD<Vendedor> {
 
     private final EntityManager em;
-    
-    public ClienteDAO() {
 
-        this.em = new JPAUtil().getManager();
+    public VendedorDAO(EntityManager em) {
+        this.em = em;
     }
 
     @Override
-    public void create(Cliente cliente) {
+    public void create(Vendedor obj) {
         try {
             em.getTransaction().begin();
-            if (cliente.getPkcliente() == null) {
-                em.persist(cliente);
+            if (obj.getPkvendedores() == null) {
+                em.persist(obj);
             } else {
-                em.merge(cliente);
+                em.merge(obj);
             }
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -42,12 +40,10 @@ public class ClienteDAO implements ICRUD<Cliente> {
     }
 
     @Override
-    public void delete(Cliente c) {
-
+    public void delete(Vendedor obj) {
         try {
             em.getTransaction().begin();
-            c = em.find(Cliente.class, c.getPkcliente());
-            em.remove(c);
+            em.remove(obj);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -57,29 +53,29 @@ public class ClienteDAO implements ICRUD<Cliente> {
     }
 
     @Override
-    public List<Cliente> retrivetAll() {
-        String consulta = "select c from Cliente c";
-        TypedQuery<Cliente> query;
+    public List<Vendedor> retrivetAll() {
+        String consulta = "select p from Produto p";
+        TypedQuery<Vendedor> query;
 
-        query = em.createQuery(consulta, Cliente.class);
+        query = em.createQuery(consulta, Vendedor.class);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public Vendedor retrivetbyId(Integer id) {
+        return em.find(Vendedor.class, id);
+    }
+
+    @Override
+    public List<Vendedor> retriveByName(String nome) {
+        String consulta = "select p from Produto p where p.nome like :pNome";
+
+        TypedQuery<Vendedor> query = em.createQuery(consulta, Vendedor.class);
+
+        query.setParameter("pNome", "%" + nome + "%");
 
         return query.getResultList();
     }
 
-    
-    @Override
-    public Cliente retrivetbyId(Integer id) {
-        return em.find(Cliente.class, id);
-    }
-
-    @Override
-    public List<Cliente> retriveByName(String nome) {
-        String consulta = "select c from Cliente c where c.nomeFantasia like :pNome";
-        
-        TypedQuery<Cliente>  query = em.createQuery(consulta, Cliente.class);
-        
-        query.setParameter("pNome", "%"+nome+"%");
-
-        return query.getResultList();
-    }
 }

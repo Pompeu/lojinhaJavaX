@@ -15,7 +15,7 @@ import lojinha.model.Produto;
  *
  * @author pompeu
  */
-class ProdutoDAO implements ICRUD<Produto> {
+public class ProdutoDAO implements ICRUD<Produto> {
 
     private final EntityManager em;
 
