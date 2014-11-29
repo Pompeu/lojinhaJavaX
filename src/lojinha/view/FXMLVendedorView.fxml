@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,8 +8,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLVendedorController">
+<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="lojinha.controller.FXMLVendedorController">
     <stylesheets>
-        <URL value="@fxmlclienteview.css"/>
+        <URL value="@fxmlclienteview.css" />
     </stylesheets>
+   <children>
+      <Text layoutX="50.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
+      <Text layoutX="50.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
+      <Text layoutX="251.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nascimento" />
+      <TextField fx:id="tfNome" layoutX="49.0" layoutY="69.0" prefHeight="25.0" prefWidth="513.0" />
+      <TextField fx:id="tfCPF" layoutX="49.0" layoutY="133.0" />
+      <TextField fx:id="tfNascimento" layoutX="247.0" layoutY="133.0" />
+      <Text layoutX="191.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro Vendedor">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tbVendedor" layoutX="34.0" layoutY="270.0" prefHeight="188.0" prefWidth="535.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="tcNome" prefWidth="253.0" text="Nome" />
+          <TableColumn fx:id="tcCPF" prefWidth="156.0" resizable="false" text="CPF" />
+            <TableColumn fx:id="tcNascimento" prefWidth="120.0" text="Nascimento" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnGravar" layoutX="50.0" layoutY="188.0" mnemonicParsing="false" text="Gravar Vendedor" />
+      <Button fx:id="btnVendedor" layoutX="212.0" layoutY="187.0" mnemonicParsing="false" text="Deletar Vendedor" />
+      <Button fx:id="btnBuscar" layoutX="412.0" layoutY="230.0" mnemonicParsing="false" text="Buscar um Vendador" />
+      <TextField fx:id="tfBusca" layoutX="357.0" layoutY="188.0" prefHeight="25.0" prefWidth="206.0" />
+      <Text layoutX="357.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite num nome Para Buscar" />
+   </children>
 </AnchorPane>

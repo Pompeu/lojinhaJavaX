@@ -116,10 +116,10 @@ public class ClienteDAOteste {
 
         ICRUD<Cliente> clienteDAO = new ClienteDAO();
 
-         clienteDAO.create(cliente);
+        clienteDAO.create(cliente);
     }
 
-   @Test
+    @Test
     public void deveRecuperaUmCliente() {
         Cliente c;
 
@@ -136,5 +136,16 @@ public class ClienteDAOteste {
         List<Cliente> clientes = clienteDAO.retrivetAll();
         assertEquals(clientes.size(), 2);
         assertEquals(clientes.get(1).getNomeFantasia(), "lojinha doida");
+    }
+
+    @Test
+    public void deveRecuperarClientesPeloNome() {
+        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+        String nome = "doida";
+
+        List<Cliente> clientes = clienteDAO.retriveByName(nome);
+
+        assertTrue(clientes.size() > 0);
+
     }
 }

@@ -39,7 +39,7 @@ public class Produto implements Serializable {
     private String descricao;
     @Basic(optional = false)
     @Column(name = "estoque_minimo", nullable = false)
-    private int estoqueMinimo;
+    private int estoque;
 
     public Produto() {
     }
@@ -48,10 +48,10 @@ public class Produto implements Serializable {
         this.pkProdutos = pkProdutos;
     }
 
-    public Produto(BigDecimal valor, String descricao, int estoqueMinimo) {
+    public Produto(BigDecimal valor, String descricao, int estoque) {
         this.valor = valor;
         this.descricao = descricao;
-        this.estoqueMinimo = estoqueMinimo;
+        this.estoque = estoque;
     }
 
     public Integer getPkprodutos() {
@@ -79,11 +79,11 @@ public class Produto implements Serializable {
     }
 
     public int getEstoqueMinimo() {
-        return estoqueMinimo;
+        return estoque;
     }
 
-    public void setEstoqueMinimo(int estoqueMinimo) {
-        this.estoqueMinimo = estoqueMinimo;
+    public void setEstoqueMinimo(int estoque) {
+        this.estoque = estoque;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return "Produto{" + "pkprodutos=" + pkProdutos + ", valor=" + valor + ", descricao=" + descricao + ", estoqueMinimo=" + estoqueMinimo + '}';
+        return "Produto{" + "pkprodutos=" + pkProdutos + ", valor=" + valor + ", descricao=" + descricao + ", estoque=" + estoque + '}';
     }
 
     

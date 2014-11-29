@@ -16,7 +16,6 @@
             <menus>
                 <Menu fx:id="mCadastro" mnemonicParsing="false" text="Cadastrar">
                     <items>
-                        <MenuItem fx:id="mFechar" mnemonicParsing="false" text="Fechar" />
                         <Menu fx:id="mCadastros" mnemonicParsing="false" text="Cadastros">
                             <items>
                                 <MenuItem fx:id="mCadCliente" mnemonicParsing="false" text="Cliente" />
@@ -25,19 +24,26 @@
                                 <MenuItem fx:id="mCadProduto" mnemonicParsing="false" text="Produto" />
                             </items>
                         </Menu>
+                        <MenuItem fx:id="mFechar" mnemonicParsing="false" text="Fechar" />
                     </items>
                 </Menu>
                 <Menu fx:id="mMovimentacao" mnemonicParsing="false" text="Movimentaçao">
                     <items>
-                        <MenuItem fx:id="mBuscas" mnemonicParsing="false" text="Buscar" />
                         <MenuItem fx:id="mVendas" mnemonicParsing="false" text="Vendas" />
-                    </items>
-                </Menu>
-                <Menu fx:id="mAjuda" mnemonicParsing="false" text="Ajuda">
+                  <MenuItem fx:id="mCompras" mnemonicParsing="false" text="Compras" />
+                  <Menu mnemonicParsing="false" text="Buscas">
                     <items>
-                        <MenuItem fx:id="mAbout" mnemonicParsing="false" text="Sobre" />
+                        <MenuItem fx:id="mVendas2" mnemonicParsing="false" text="Fornecedor" />
+                        <MenuItem fx:id="mVendas3" mnemonicParsing="false" text="Cliente" />
+                    </items>
+                  </Menu>
                     </items>
                 </Menu>
+            <Menu fx:id="mHelp" mnemonicParsing="false" text="HELP">
+               <items>
+                  <MenuItem fx:id="mAboutUs" mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
             </menus>
         </MenuBar>
     </children>

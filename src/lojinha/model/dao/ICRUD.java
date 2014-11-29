@@ -6,6 +6,7 @@
 package lojinha.model.dao;
 
 import java.util.List;
+import lojinha.model.Cliente;
 
 /**
  *
@@ -21,4 +22,8 @@ public interface ICRUD<T> {
     public List<T> retrivetAll();
 
     public T retrivetbyId(Integer id);
+
+    public List<T> retriveByName(String name);
+
+    
 }

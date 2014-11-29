@@ -52,7 +52,7 @@ public class FXMLForncedorController implements Initializable {
     private Button btnRemoveEndereco;
     @FXML
     private TableView<EnderecoFornecedor> tbEnderecos;
-    private final ObservableList<EnderecoCliente> listaEnderecos = FXCollections.observableArrayList();
+    private final ObservableList<EnderecoFornecedor> listaEnderecos = FXCollections.observableArrayList();
     @FXML
     private TableColumn tcComplemento;
     @FXML
@@ -104,6 +104,9 @@ public class FXMLForncedorController implements Initializable {
         tcCidade.setCellValueFactory(new PropertyValueFactory("cidade"));
         tcEsdado.setCellValueFactory(new PropertyValueFactory("estado"));
         tcComplemento.setCellValueFactory(new PropertyValueFactory("complemento"));
+        
+        tbEnderecos.setItems(listaEnderecos);
+        tbTelefone.setItems(listaTelefones);
     }
     
 }

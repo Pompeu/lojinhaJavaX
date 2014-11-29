@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,8 +8,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLProdutoController">
+<AnchorPane id="AnchorPane" prefHeight="473.0" prefWidth="568.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLProdutoController">
     <stylesheets>
-        <URL value="@fxmlclienteview.css"/>
+        <URL value="@fxmlclienteview.css" />
     </stylesheets>
+   <children>
+      <Text layoutX="25.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor" />
+      <Text layoutX="23.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao" />
+      <Text layoutX="123.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
+      <TextField fx:id="tfDescricao" layoutX="22.0" layoutY="89.0" prefHeight="25.0" prefWidth="515.0" />
+      <TextField fx:id="tfValor" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="77.0" />
+      <TextField fx:id="tfEstoque" layoutX="121.0" layoutY="143.0" prefHeight="25.0" prefWidth="115.0" />
+      <Text layoutX="146.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro Produtos">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnAddProduto" layoutX="25.0" layoutY="185.0" mnemonicParsing="false" text="Adicionar Produto" />
+      <Button fx:id="btnRemoveProduto" layoutX="186.0" layoutY="184.0" mnemonicParsing="false" text="Remover Produto" />
+      <TableView fx:id="tbProdutos" layoutX="21.0" layoutY="259.0" prefHeight="164.0" prefWidth="527.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="tcDescricao" editable="false" prefWidth="258.0" text="Descricao" />
+          <TableColumn fx:id="tcValor" editable="false" prefWidth="113.0" resizable="false" text="Valor" />
+            <TableColumn fx:id="tcEstoque" editable="false" prefWidth="145.0" text="Quantidade" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBuscarProduto" layoutX="411.0" layoutY="223.0" mnemonicParsing="false" text="Buscar Produtos" />
+      <TextField fx:id="tfEstoque1" layoutX="345.0" layoutY="184.0" prefHeight="25.0" prefWidth="192.0" />
+      <Text layoutX="347.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digiste o nome do produto" />
+   </children>
 </AnchorPane>

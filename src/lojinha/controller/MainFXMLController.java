@@ -43,14 +43,18 @@ public class MainFXMLController implements Initializable {
     @FXML
     private Menu mMovimentacao;
     @FXML
-    private MenuItem mBuscas;
-    @FXML
     private MenuItem mVendas;
-    @FXML
-    private Menu mAjuda;
-    @FXML
-    private MenuItem mAbout;
     private final Main main = new Main();
+    @FXML
+    private MenuItem mVendas2;
+    @FXML
+    private MenuItem mVendas3;
+    @FXML
+    private Menu mHelp;
+    @FXML
+    private MenuItem mAboutUs;
+    @FXML
+    private MenuItem mCompras;
 
     /**
      * Initializes the controller class.

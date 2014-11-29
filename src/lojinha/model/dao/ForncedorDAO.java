@@ -68,4 +68,9 @@ public class ForncedorDAO implements ICRUD<Fornecedor> {
         return em.find(Fornecedor.class, id);
     }
 
+    @Override
+    public List<Fornecedor> retriveByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
