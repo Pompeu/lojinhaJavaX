@@ -117,12 +117,21 @@ public class TestesDAO {
         List<Produto> produtos = icrud.retriveByName("Azul");
         assertTrue(produtos.size() > 0);
     }
-    
+
     @Test
-    public void deveRecurarUmVendedor(){
+    public void deveRecurarUmVendedor() {
         ICRUD<Vendedor> icrud = new VendedorDAO(new JPAUtil().getManager());
         //icrud.create(new Vendedor("PompeuLimp", "00311920179", "011182"));
         Vendedor vendedor = icrud.retrivetbyId(2);
         assertEquals(vendedor.getPkvendedores(), 2, 0);
+    }
+
+    @Test
+    public void deveRecucperarUmVendedorPeloNome() {
+        ICRUD<Vendedor> icrud = new VendedorDAO(new JPAUtil().getManager());
+        //icrud.create(new Vendedor("PompeuLimp", "00311920179", "011182"));
+        List<Vendedor> vendedores = icrud.retriveByName("Limp");
+
+        assertTrue(vendedores.size() == 1);
     }
 }

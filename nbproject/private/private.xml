@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/test/testes/DAO/TesteProdutosDAO.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/Produto.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/test/testes/DAO/TestesDAO.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/ClienteDAO.java</file>
             <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/ProdutoDAO.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/VendedorDAO.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/Vendedor.java</file>
         </group>
     </open-files>
 </project-private>

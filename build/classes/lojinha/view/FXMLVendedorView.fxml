@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="lojinha.controller.FXMLVendedorController">
+<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLVendedorController">
     <stylesheets>
         <URL value="@fxmlclienteview.css" />
     </stylesheets>
@@ -26,13 +26,14 @@
       </Text>
       <TableView fx:id="tbVendedor" layoutX="34.0" layoutY="270.0" prefHeight="188.0" prefWidth="535.0" tableMenuButtonVisible="true">
         <columns>
-          <TableColumn fx:id="tcNome" prefWidth="253.0" text="Nome" />
+          <TableColumn fx:id="tcNome" prefWidth="253.0" resizable="false" text="Nome" />
           <TableColumn fx:id="tcCPF" prefWidth="156.0" resizable="false" text="CPF" />
-            <TableColumn fx:id="tcNascimento" prefWidth="120.0" text="Nascimento" />
+            <TableColumn fx:id="tcNascimento" prefWidth="120.0" resizable="false" text="Nascimento" />
+            <TableColumn fx:id="tcpkKey" editable="false" minWidth="0.0" prefWidth="253.0" resizable="false" text="pkKey" visible="false" />
         </columns>
       </TableView>
       <Button fx:id="btnGravar" layoutX="50.0" layoutY="188.0" mnemonicParsing="false" text="Gravar Vendedor" />
-      <Button fx:id="btnVendedor" layoutX="212.0" layoutY="187.0" mnemonicParsing="false" text="Deletar Vendedor" />
+      <Button fx:id="btnDeletar" layoutX="212.0" layoutY="187.0" mnemonicParsing="false" text="Deletar Vendedor" />
       <Button fx:id="btnBuscar" layoutX="412.0" layoutY="230.0" mnemonicParsing="false" text="Buscar um Vendador" />
       <TextField fx:id="tfBusca" layoutX="357.0" layoutY="188.0" prefHeight="25.0" prefWidth="206.0" />
       <Text layoutX="357.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite num nome Para Buscar" />

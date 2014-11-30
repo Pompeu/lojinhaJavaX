@@ -43,6 +43,7 @@ public class VendedorDAO implements ICRUD<Vendedor> {
     public void delete(Vendedor obj) {
         try {
             em.getTransaction().begin();
+            obj = retrivetbyId(obj.getPkvendedores());
             em.remove(obj);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -69,7 +70,7 @@ public class VendedorDAO implements ICRUD<Vendedor> {
 
     @Override
     public List<Vendedor> retriveByName(String nome) {
-        String consulta = "select p from Produto p where p.nome like :pNome";
+        String consulta = "select p from Vendedor p where p.nome like :pNome";
 
         TypedQuery<Vendedor> query = em.createQuery(consulta, Vendedor.class);
 
