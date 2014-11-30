@@ -6,6 +6,7 @@
 package lojinha.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,11 +20,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lojinha.model.EnderecoCliente;
+import javafx.scene.input.MouseEvent;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
-import lojinha.model.TelefoneCliente;
+import lojinha.model.TelefoneFornecedor;
+import lojinha.model.dao.FornecedorDAO;
+import lojinha.model.dao.ICRUD;
 
 /**
  * FXML Controller class
@@ -52,8 +55,8 @@ public class FXMLForncedorController implements Initializable {
     @FXML
     private TableColumn tcEsdado;
     @FXML
-    private TableView<TelefoneCliente> tbTelefone;
-    private final ObservableList<TelefoneCliente> listaTelefones = FXCollections.observableArrayList();
+    private TableView<TelefoneFornecedor> tbTelefone;
+    private final ObservableList<TelefoneFornecedor> listaTelefones = FXCollections.observableArrayList();
     @FXML
     private TableColumn tcDDD;
     @FXML
@@ -79,12 +82,18 @@ public class FXMLForncedorController implements Initializable {
     @FXML
     private TextField tfDDD;
     @FXML
-    private TextField tdNumero;
-    @FXML
     private Button btnRemoveTelefone;
     @FXML
     private Button btnAddTelefone;
-    private Fornecedor fornecedor;
+    @FXML
+    private TextField tfNumero;
+    @FXML
+    private Button btnGravar;
+    @FXML
+    private Button btnBuscar;
+    private Fornecedor fornecedor = new Fornecedor();
+    private ICRUD<Fornecedor> icrud;
+    private List<Fornecedor> fornecedores;
 
     /**
      * Initializes the controller class.
@@ -99,19 +108,119 @@ public class FXMLForncedorController implements Initializable {
     }
 
     private void initItens() {
+
         btnAddEndereco.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (refirifcaEnderecoRepetido(tfCep.getText(), tfLogradouro.getText())) {
+                    listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
+                            tfLogradouro.getText(), tfCidade.getText(),
+                            tfBairro.getText(), tfCep.getText(), cbEstados.getValue().toString(),
+                            fornecedor));
+                }
+
+                limparCampusEndereco();
+            }
+
+            boolean refirifcaEnderecoRepetido(String cpf, String logradouro) {
+                for (EnderecoFornecedor endereco : listaEnderecos) {
+                    if (endereco.getCep().equals(cpf)) {
+                        if (endereco.getLogradouro().equals(logradouro)) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+
+        });
+        btnRemoveEndereco.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-
-                listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
-                        tfLogradouro.getText(), tfCidade.getText(),
-                        tfBairro.getText(), tfCep.getText(), cbEstados.getValue().toString(),
-                        fornecedor));
-
-                fornecedor.setEnderecofornecedorList(listaEnderecos);
+                listaEnderecos.remove(tbEnderecos.getSelectionModel().getSelectedItem());
             }
         });
+
+        tbEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                tfComplemento.setText(tbEnderecos.getSelectionModel().getSelectedItem().getComplemento());
+                tfLogradouro.setText(tbEnderecos.getSelectionModel().getSelectedItem().getLogradouro());
+                tfCidade.setText(tbEnderecos.getSelectionModel().getSelectedItem().getCidade());
+                tfBairro.setText(tbEnderecos.getSelectionModel().getSelectedItem().getBairro());
+                tfCep.setText(tbEnderecos.getSelectionModel().getSelectedItem().getCep());
+                cbEstados.setValue(tbEnderecos.getSelectionModel().getSelectedItem().getEstado());
+            }
+        });
+        btnAddTelefone.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if (verificarTelefonesRepetidos(tfDDD.getText(), tfNumero.getText())) {
+                    listaTelefones.add(new TelefoneFornecedor(tfDDD.getText(), tfNumero.getText(), fornecedor));
+                }
+            }
+
+            private boolean verificarTelefonesRepetidos(String ddd, String numero) {
+                for (TelefoneFornecedor telefone : listaTelefones) {
+                    if (telefone.getDdd().equals(ddd)) {
+                        if (telefone.getNumero().equals(numero)) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+        tbTelefone.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                tfDDD.setText(tbTelefone.getSelectionModel().getSelectedItem().getDdd());
+                tfNumero.setText(tbTelefone.getSelectionModel().getSelectedItem().getNumero());
+            }
+        });
+        btnRemoveTelefone.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                listaTelefones.remove(tbTelefone.getSelectionModel().getSelectedItem());
+            }
+        });
+        btnGravar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                fornecedor.setCnpj(tfCNPJ.getText());
+                fornecedor.setNomeFantasia(tfNomeFantasia.getText());
+                fornecedor.setRazaoSocial(tfRazaoSocial.getText());
+                fornecedor.setEnderecofornecedorList(listaEnderecos);
+                fornecedor.setTelefonefornecedoresList(listaTelefones);
+
+                icrud = new FornecedorDAO();
+                icrud.create(fornecedor);
+            }
+        });
+
+        btnBuscar.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                icrud = new FornecedorDAO();
+                fornecedor = icrud.retriveByCNPJOrCPF(tfCNPJ.getText());
+                prencherFormulario(fornecedor);
+            }
+
+            private void prencherFormulario(Fornecedor fornecedor) {
+                tfRazaoSocial.setText(fornecedor.getRazaoSocial());
+                tfNomeFantasia.setText(fornecedor.getNomeFantasia());
+                tfCNPJ.setText(fornecedor.getCnpj());
+                listaEnderecos.addAll(fornecedor.getEnderecofornecedorList());
+                listaTelefones.addAll(fornecedor.getTelefonefornecedoresList());
+            }
+        });
+
     }
 
     private void initItensList() {
@@ -129,6 +238,15 @@ public class FXMLForncedorController implements Initializable {
 
         tbEnderecos.setItems(listaEnderecos);
         tbTelefone.setItems(listaTelefones);
+    }
+
+    private void limparCampusEndereco() {
+        tfComplemento.setText("");
+        tfLogradouro.setText("");
+        tfCidade.setText("");
+        tfBairro.setText("");
+        tfCep.setText("");
+        cbEstados.setValue(null);
     }
 
 }

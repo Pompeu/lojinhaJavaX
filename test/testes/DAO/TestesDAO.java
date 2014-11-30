@@ -13,7 +13,7 @@ import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
 import lojinha.model.Vendedor;
 import lojinha.model.dao.ClienteDAO;
-import lojinha.model.dao.ForncedorDAO;
+import lojinha.model.dao.FornecedorDAO;
 import lojinha.model.dao.ICRUD;
 import lojinha.model.dao.ProdutoDAO;
 import lojinha.model.dao.VendedorDAO;
@@ -86,13 +86,12 @@ public class TestesDAO {
 
         Cliente cliente = clienteDAO.retriveByCNPJOrCPF(cnpj);
 
-        
         assertEquals(cliente.getNomeFantasia(), "lojinha doida");
     }
 
     @Test
     public void deveRetornarUmFornecdorPeloId() {
-        ICRUD<Fornecedor> icrud = new ForncedorDAO();
+        ICRUD<Fornecedor> icrud = new FornecedorDAO();
         Fornecedor f = icrud.retrivetbyId(3);
         assertEquals(f.getNomeFantasia(), "CTBC");
 
@@ -100,10 +99,23 @@ public class TestesDAO {
 
     @Test
     public void deveRetornarTodosFornecedores() {
-        ICRUD<Fornecedor> icrud = new ForncedorDAO();
+        ICRUD<Fornecedor> icrud = new FornecedorDAO();
         List<Fornecedor> fornecedors = icrud.retrivetAll();
-
         assertFalse(fornecedors.isEmpty());
+    }
+
+    @Test
+    public void deveRetornarUmFornecedorPeloNome() {
+        ICRUD<Fornecedor> icrud = new FornecedorDAO();
+        List<Fornecedor> fornecedors = icrud.retriveByName("Cascarinha Solution");
+        assertFalse(fornecedors.isEmpty());
+    }
+
+    @Test
+    public void deveRetornarUmFornecedorPeloCNPJ() {
+        ICRUD<Fornecedor> icrud = new FornecedorDAO();
+        Fornecedor fornecedor = icrud.retriveByCNPJOrCPF("02003002000178");
+        assertEquals(fornecedor.getNomeFantasia(), "OI");
     }
 
     @Test

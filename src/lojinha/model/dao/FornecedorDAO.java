@@ -8,7 +8,6 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import lojinha.model.Cliente;
 import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 
@@ -16,11 +15,11 @@ import lojinha.model.JPA.JPAUtil;
  *
  * @author pompeu
  */
-public class ForncedorDAO implements ICRUD<Fornecedor> {
+public class FornecedorDAO implements ICRUD<Fornecedor> {
 
     private final EntityManager em;
 
-    public ForncedorDAO() {
+    public FornecedorDAO() {
         em = new JPAUtil().getManager();
     }
 
@@ -70,17 +69,25 @@ public class ForncedorDAO implements ICRUD<Fornecedor> {
     }
 
     @Override
-    public List<Fornecedor> retriveByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Fornecedor> retriveByName(String nome) {
+        String consulta = "select c from Fornecedor c where c.nomeFantasia like :pNome";
+
+        TypedQuery<Fornecedor> query = em.createQuery(consulta, Fornecedor.class);
+
+        query.setParameter("pNome", "%" + nome + "%");
+
+        return query.getResultList();
     }
 
     @Override
     public Fornecedor retriveByCNPJOrCPF(String cnpj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String consulta = "select c from Fornecedor c where c.cnpj like :pCnpj";
+
+        TypedQuery<Fornecedor> query = em.createQuery(consulta, Fornecedor.class);
+
+        query.setParameter("pCnpj", "%" + cnpj + "%");
+
+        return query.getSingleResult();
     }
-
-   
-
-    
 
 }
