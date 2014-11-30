@@ -82,4 +82,15 @@ public class ClienteDAO implements ICRUD<Cliente> {
 
         return query.getResultList();
     }
+
+    @Override
+    public Cliente retriveByCNPJOrCPF(String cnpj) {
+         String consulta = "select c from Cliente c where c.cnpj like :pCnpj";
+        
+        TypedQuery<Cliente>  query = em.createQuery(consulta, Cliente.class);
+        
+        query.setParameter("pCnpj", "%"+cnpj+"%");
+
+        return query.getSingleResult();
+    }
 }

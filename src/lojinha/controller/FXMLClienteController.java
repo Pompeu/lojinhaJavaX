@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
@@ -75,7 +76,10 @@ public class FXMLClienteController implements Initializable {
     private ComboBox cbEstados;
     @FXML
     private TextField tfDDD;
-    private final Cliente cliente = new Cliente();
+    @FXML
+    private Button btnBuscar;    
+    private ICRUD<Cliente> crudCliente;
+    private Cliente cliente = new Cliente();
 
     /**
      * Initializes the controller class.
@@ -184,12 +188,33 @@ public class FXMLClienteController implements Initializable {
                 cliente.setCnpj(tfCnpj.getText());
                 cliente.setNomeFantasia(tfNomeFantasia.getText());
                 cliente.setRazaoSocial(tfRazaSocial.getText());
-                
-                ICRUD<Cliente> crudCliente = new ClienteDAO();
-                
+
+                crudCliente = new ClienteDAO();
+
                 crudCliente.create(cliente);
 
             }
+        });
+        btnBuscar.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                crudCliente = new ClienteDAO();
+                cliente = crudCliente.retriveByCNPJOrCPF(tfCnpj.getText());
+                prencherFormulario(cliente);
+                btnGravarCliente.setDisable(false);
+                
+            }
+
+            void prencherFormulario(Cliente cliente) {
+                
+                tfNomeFantasia.setText(cliente.getNomeFantasia());
+                tfCnpj.setText(cliente.getCnpj());
+                tfRazaSocial.setText(cliente.getRazaoSocial());
+                listaEnderecos.addAll(cliente.getEnderecoClienteList());
+                listaTelefones.addAll(cliente.getTelefoneClienteList());
+            }
+
         });
     }
 

@@ -8,6 +8,7 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import lojinha.model.Cliente;
 import lojinha.model.Vendedor;
 
 /**
@@ -78,5 +79,12 @@ public class VendedorDAO implements ICRUD<Vendedor> {
 
         return query.getResultList();
     }
+
+    @Override
+    public Vendedor retriveByCNPJOrCPF(String cnpj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
 }

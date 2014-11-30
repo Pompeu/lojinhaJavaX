@@ -8,6 +8,7 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import lojinha.model.Cliente;
 import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 
@@ -72,5 +73,14 @@ public class ForncedorDAO implements ICRUD<Fornecedor> {
     public List<Fornecedor> retriveByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Fornecedor retriveByCNPJOrCPF(String cnpj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+    
 
 }

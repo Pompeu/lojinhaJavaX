@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lojinha.model.dao.ForncedorDAO;
 
 /**
  *
@@ -67,7 +66,7 @@ public class Main extends Application {
     public void cadastroFornecedor(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/lojinha/view/FXMLForncedorView.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Cadastro Clientes");
+        stage.setTitle("Cadastro Forncedor");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

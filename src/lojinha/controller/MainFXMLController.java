@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import lojinha.Main;
 
@@ -55,6 +56,8 @@ public class MainFXMLController implements Initializable {
     private MenuItem mAboutUs;
     @FXML
     private MenuItem mCompras;
+    @FXML
+    private ImageView imgBackgroud;
 
     /**
      * Initializes the controller class.
@@ -65,6 +68,7 @@ public class MainFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initItens();
+        
     }    
     
     private void initItens() {

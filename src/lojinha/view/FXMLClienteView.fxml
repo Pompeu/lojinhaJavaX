@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="694.0" prefWidth="597.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLClienteController">
+<AnchorPane id="AnchorPane" fx:id="AchorPaneCliente" prefHeight="694.0" prefWidth="597.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLClienteController">
     <stylesheets>
         <URL value="@fxmlclienteview.css" />
     </stylesheets>
@@ -17,7 +17,7 @@
       <TextField fx:id="tfNomeFantasia" layoutX="19.0" layoutY="158.0" prefHeight="25.0" prefWidth="536.0" />
       <TextField fx:id="tfCnpj" layoutX="19.0" layoutY="214.0" />
       <TextField fx:id="tfLogradouro" layoutX="21.0" layoutY="269.0" prefHeight="25.0" prefWidth="536.0" />
-      <ComboBox fx:id="cbEstados" layoutX="201.0" layoutY="214.0" prefHeight="25.0" prefWidth="140.0" promptText="Estados" />
+      <ComboBox fx:id="cbEstados" layoutX="415.0" layoutY="305.0" prefHeight="25.0" prefWidth="140.0" promptText="Estados" />
       <Text layoutX="19.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rasao Social" />
       <Text layoutX="19.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Fantasia" />
       <Text layoutX="19.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CNPJ" />
@@ -42,7 +42,7 @@
          </font>
       </Text>
       <Text layoutX="23.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logradouro" />
-      <Text layoutX="203.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
+      <Text layoutX="353.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
       <TextField fx:id="tfDDD" layoutX="23.0" layoutY="534.0" prefHeight="25.0" prefWidth="53.0" />
       <TextField fx:id="tfNumeroTelefone" layoutX="110.0" layoutY="533.0" />
       <Button fx:id="btnSalvarTelefone" layoutX="23.0" layoutY="570.0" mnemonicParsing="false" text="Salvar Telefone" />
@@ -61,5 +61,6 @@
       </Text>
       <Text layoutX="25.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DDD" />
       <Text layoutX="110.0" layoutY="524.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero" />
+      <Button fx:id="btnBuscar" layoutX="210.0" layoutY="214.0" mnemonicParsing="false" text="Buscar Por CNPJ" />
    </children>
 </AnchorPane>

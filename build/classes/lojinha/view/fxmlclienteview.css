@@ -1,19 +1,21 @@
-/*
- * Empty Stylesheet file.
- */
-
-
 Button{
     -fx-background-color: #5bc0de;
     -fx-border-color: #46b8da;
-    -fx-border-radius: 100%;
 }
 Button:hover{ 
     -fx-background-color: #31b0d5;
     -fx-border-color: #269abc;
-    -fx-border-radius: 100%;
 }
-
-#AnchorPane,menuBar{
+Button:disabled{
+    -fx-background-color:brown;
+}
+#AnchorPane,MenuBar{
     -fx-background-color: steelblue;
 }
+TableView,TableColumn {
+    -fx-background-color: aquamarine;
+    -fx-alignment: CENTER;
+}
+
+
+

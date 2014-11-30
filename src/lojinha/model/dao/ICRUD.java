@@ -25,5 +25,6 @@ public interface ICRUD<T> {
 
     public List<T> retriveByName(String name);
 
-    
+    public T retriveByCNPJOrCPF(String cnpj);
+
 }
