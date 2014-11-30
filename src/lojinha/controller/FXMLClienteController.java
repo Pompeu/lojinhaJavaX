@@ -48,8 +48,6 @@ public class FXMLClienteController implements Initializable {
     @FXML
     private Button btnDeletarEndereco;
     @FXML
-    private Button btnEdicatarEndereco;
-    @FXML
     private TextField tfLogradouro;
     @FXML
     private TableView<EnderecoCliente> tableEnderecos;
@@ -62,8 +60,6 @@ public class FXMLClienteController implements Initializable {
     private TextField tfNumeroTelefone;
     @FXML
     private Button btnSalvarTelefone;
-    @FXML
-    private Button btnEdicatarTelefone;
     @FXML
     private Button btnDeletarTelefone;
     @FXML
@@ -79,7 +75,7 @@ public class FXMLClienteController implements Initializable {
     private ComboBox cbEstados;
     @FXML
     private TextField tfDDD;
-    private Cliente cliente;
+    private final Cliente cliente = new Cliente();
 
     /**
      * Initializes the controller class.
@@ -95,8 +91,50 @@ public class FXMLClienteController implements Initializable {
     }
 
     private void initActionItens() {
-        btnGravarCliente.setDisable(true);
 
+        btnGravarCliente.setDisable(true);
+        btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                if (verificaEnderecoRepetidos(tfLogradouro.getText(), cbEstados.getValue().toString())) {
+                    listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), cliente));
+                }
+                cliente.setEnderecoClienteList(listaEnderecos);
+
+                tfLogradouro.setText("");
+                cbEstados.setValue(null);
+            }
+
+            private boolean verificaEnderecoRepetidos(String logradouro, String estado) {
+                for (EnderecoCliente eCliente : listaEnderecos) {
+                    if (eCliente.getLogradouro().equals(logradouro)
+                            && eCliente.getEstado().equals(estado)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        });
+        btnDeletarEndereco.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                listaEnderecos.remove(tableEnderecos.getSelectionModel().getSelectedItem());
+            }
+        });
+
+        tableEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                tfLogradouro.setText(tableEnderecos.getSelectionModel().getSelectedItem().getLogradouro());
+                cbEstados.setValue(tableEnderecos.getSelectionModel().getSelectedItem().getEstado());
+            }
+
+        });
         btnSalvarTelefone.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -139,56 +177,18 @@ public class FXMLClienteController implements Initializable {
             }
 
         });
-        btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                cliente = new Cliente(tfCnpj.getText(), tfNomeFantasia.getText(), tfRazaSocial.getText());
-                if (verificaEnderecoRepetidos(tfLogradouro.getText(), cbEstados.getValue().toString())) {
-                    listaEnderecos.add(new EnderecoCliente(tfLogradouro.getText(), cbEstados.getValue().toString(), cliente));
-                }
-                cliente.setEnderecoClienteList(listaEnderecos);
-
-                tfLogradouro.setText("");
-                cbEstados.setValue(null);
-            }
-
-            private boolean verificaEnderecoRepetidos(String logradouro, String estado) {
-                for (EnderecoCliente eCliente : listaEnderecos) {
-                    if (eCliente.getLogradouro().equals(logradouro)
-                            && eCliente.getEstado().equals(estado)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-        });
-        btnDeletarEndereco.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                listaEnderecos.remove(tableEnderecos.getSelectionModel().getSelectedItem());
-            }
-        });
-
-        tableEnderecos.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                tfLogradouro.setText(tableEnderecos.getSelectionModel().getSelectedItem().getLogradouro());
-                cbEstados.setValue(tableEnderecos.getSelectionModel().getSelectedItem().getEstado());
-            }
-
-        });
         btnGravarCliente.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-
-                ICRUD<Cliente> crudCliente = new ClienteDAO();
-                crudCliente.create(cliente);
+                cliente.setCnpj(tfCnpj.getText());
+                cliente.setNomeFantasia(tfNomeFantasia.getText());
+                cliente.setRazaoSocial(tfRazaSocial.getText());
                 
+                ICRUD<Cliente> crudCliente = new ClienteDAO();
+                
+                crudCliente.create(cliente);
+
             }
         });
     }

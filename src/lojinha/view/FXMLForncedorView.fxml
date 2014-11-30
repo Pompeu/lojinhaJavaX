@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="671.0" prefWidth="920.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="lojinha.controller.FXMLForncedorController">
+<AnchorPane id="AnchorPane" prefHeight="671.0" prefWidth="920.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLForncedorController">
     <stylesheets>
         <URL value="@fxmlclienteview.css" />
     </stylesheets>
@@ -24,7 +24,7 @@
       <TextField fx:id="tfLogradouro" layoutX="18.0" layoutY="211.0" prefHeight="25.0" prefWidth="375.0" />
       <TextField fx:id="tfCep" layoutX="415.0" layoutY="158.0" />
       <TextField fx:id="tfBairro" layoutX="416.0" layoutY="212.0" />
-      <ComboBox fx:id="cbEstados" layoutX="610.0" layoutY="160.0" prefHeight="25.0" prefWidth="119.0" />
+      <ComboBox fx:id="cbEstados" layoutX="610.0" layoutY="160.0" prefHeight="25.0" prefWidth="119.0" promptText="Estados" />
       <Button fx:id="btnAddEndereco" layoutX="18.0" layoutY="251.0" mnemonicParsing="false" text="Adicionar Endereco" />
       <Button fx:id="btnRemoveEndereco" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" text="Remover Endereço" />
       <TableView fx:id="tbEnderecos" layoutX="17.0" layoutY="320.0" prefHeight="169.0" prefWidth="883.0" tableMenuButtonVisible="true">

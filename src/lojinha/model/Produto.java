@@ -23,12 +23,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "produtos")
 public class Produto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "pkprodutos" ,sequenceName = "produtos_pkprodutos_seq" ,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE ,generator = "pkprodutos")
+    @SequenceGenerator(name = "pkprodutos", sequenceName = "produtos_pkprodutos_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pkprodutos")
     @Basic(optional = false)
-    @Column(name ="pkprodutos" ,nullable = false)
+    @Column(name = "pkprodutos", nullable = false)
     private Integer pkProdutos;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -39,7 +40,7 @@ public class Produto implements Serializable {
     private String descricao;
     @Basic(optional = false)
     @Column(name = "estoque_minimo", nullable = false)
-    private int estoque;
+    private Integer estoque;
 
     public Produto() {
     }
@@ -48,7 +49,7 @@ public class Produto implements Serializable {
         this.pkProdutos = pkProdutos;
     }
 
-    public Produto(BigDecimal valor, String descricao, int estoque) {
+    public Produto(BigDecimal valor, String descricao, Integer estoque) {
         this.valor = valor;
         this.descricao = descricao;
         this.estoque = estoque;
@@ -78,11 +79,11 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public int getEstoqueMinimo() {
+    public Integer getEstoqueMinimo() {
         return estoque;
     }
 
-    public void setEstoqueMinimo(int estoque) {
+    public void setEstoqueMinimo(Integer estoque) {
         this.estoque = estoque;
     }
 
@@ -111,6 +112,4 @@ public class Produto implements Serializable {
         return "Produto{" + "pkprodutos=" + pkProdutos + ", valor=" + valor + ", descricao=" + descricao + ", estoque=" + estoque + '}';
     }
 
-    
-    
 }

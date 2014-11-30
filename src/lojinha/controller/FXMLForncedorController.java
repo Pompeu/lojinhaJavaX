@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
+import lojinha.model.Fornecedor;
 import lojinha.model.TelefoneCliente;
 
 /**
@@ -28,28 +31,11 @@ import lojinha.model.TelefoneCliente;
  * @author pompeu
  */
 public class FXMLForncedorController implements Initializable {
-    @FXML
-    private TextField tfRazaoSocial;
-    @FXML
-    private TextField tfNomeFantasia;
+
     @FXML
     private TextField tfCNPJ;
     @FXML
-    private TextField tfCidade;
-    @FXML
-    private TextField tfComplemento;
-    @FXML
-    private TextField tfLogradouro;
-    @FXML
-    private TextField tfCep;
-    @FXML
-    private TextField tfBairro;
-    @FXML
     private ComboBox cbEstados;
-    @FXML
-    private Button btnAddEndereco;
-    @FXML
-    private Button btnRemoveEndereco;
     @FXML
     private TableView<EnderecoFornecedor> tbEnderecos;
     private final ObservableList<EnderecoFornecedor> listaEnderecos = FXCollections.observableArrayList();
@@ -66,6 +52,31 @@ public class FXMLForncedorController implements Initializable {
     @FXML
     private TableColumn tcEsdado;
     @FXML
+    private TableView<TelefoneCliente> tbTelefone;
+    private final ObservableList<TelefoneCliente> listaTelefones = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn tcDDD;
+    @FXML
+    private TableColumn tcNumero;
+    @FXML
+    private TextField tfRazaoSocial;
+    @FXML
+    private TextField tfNomeFantasia;
+    @FXML
+    private TextField tfCidade;
+    @FXML
+    private TextField tfComplemento;
+    @FXML
+    private TextField tfLogradouro;
+    @FXML
+    private TextField tfCep;
+    @FXML
+    private TextField tfBairro;
+    @FXML
+    private Button btnAddEndereco;
+    @FXML
+    private Button btnRemoveEndereco;
+    @FXML
     private TextField tfDDD;
     @FXML
     private TextField tdNumero;
@@ -73,23 +84,35 @@ public class FXMLForncedorController implements Initializable {
     private Button btnRemoveTelefone;
     @FXML
     private Button btnAddTelefone;
-    @FXML
-    private TableView<TelefoneCliente> tbTelefone;
-    private final ObservableList<TelefoneCliente> listaTelefones = FXCollections.observableArrayList();
-    @FXML
-    private TableColumn tcDDD;
-    @FXML
-    private TableColumn tcNumero;
+    private Fornecedor fornecedor;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       initItensList();
-    }    
+        initItensList();
+        initItens();
+    }
+
+    private void initItens() {
+        btnAddEndereco.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
+                        tfLogradouro.getText(), tfCidade.getText(),
+                        tfBairro.getText(), tfCep.getText(), cbEstados.getValue().toString(),
+                        fornecedor));
+
+                fornecedor.setEnderecofornecedorList(listaEnderecos);
+            }
+        });
+    }
 
     private void initItensList() {
         cbEstados.setItems(FXCollections.observableArrayList(Estados.values()));
@@ -97,16 +120,15 @@ public class FXMLForncedorController implements Initializable {
         tcDDD.setCellValueFactory(new PropertyValueFactory("ddd"));
         tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
 
-        
         tcLogradouro.setCellValueFactory(new PropertyValueFactory("logradouro"));
         tcBairro.setCellValueFactory(new PropertyValueFactory("bairro"));
         tcCep.setCellValueFactory(new PropertyValueFactory("cep"));
         tcCidade.setCellValueFactory(new PropertyValueFactory("cidade"));
         tcEsdado.setCellValueFactory(new PropertyValueFactory("estado"));
         tcComplemento.setCellValueFactory(new PropertyValueFactory("complemento"));
-        
+
         tbEnderecos.setItems(listaEnderecos);
         tbTelefone.setItems(listaTelefones);
     }
-    
+
 }
