@@ -48,7 +48,7 @@ public class Main extends Application {
     public void cadastroProduto(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/lojinha/view/FXMLProdutoView.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Cadastro Clientes");
+        stage.setTitle("Cadastro Produtos");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
@@ -57,7 +57,7 @@ public class Main extends Application {
     public void cadastroVendedor(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/lojinha/view/FXMLVendedorView.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Cadastro Clientes");
+        stage.setTitle("Cadastro Vendedor");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

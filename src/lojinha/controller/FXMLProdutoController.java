@@ -8,7 +8,10 @@ package lojinha.controller;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,9 +23,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import lojinha.model.Produto;
 import lojinha.model.dao.ICRUD;
-
+import lojinha.model.dao.ProdutoDAO;
 
 /**
  * FXML Controller class
@@ -32,31 +36,33 @@ import lojinha.model.dao.ICRUD;
 public class FXMLProdutoController implements Initializable {
 
     @FXML
-    private TextField tfValor;
-    @FXML
     private TextField tfDescricao;
     @FXML
+    private TextField tfValor;
+    @FXML
     private TextField tfEstoque;
+    @FXML
+    private Button btnGravar;
+    @FXML
+    private Button btnDeletar;
     @FXML
     private TableView<Produto> tbProdutos;
     private final ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
     @FXML
     private TableColumn tcDescricao;
     @FXML
-    private TableColumn tcValor;
-    @FXML
     private TableColumn tcEstoque;
     @FXML
-    private Button btnAddProduto;
+    private TableColumn tcValor;
     @FXML
-    private Button btnRemoveProduto;
+    private TableColumn tcpkKey;
     @FXML
-    private Button btnBuscarProduto;
+    private TextField tfBusca;
     @FXML
-    private TextField tfBuscar;
-    private ICRUD<Produto> icrud;
+    private Button btnBucar;
+    private Produto produto = new Produto();
     private List<Produto> produtos;
-    private Produto produto;
+    private ICRUD<Produto> icrud;
 
     /**
      * Initializes the controller class.
@@ -66,38 +72,92 @@ public class FXMLProdutoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initListItens();
+        initTableItens();
         initItens();
     }
 
-    private void initListItens() {
-        tcValor.setCellValueFactory(new PropertyValueFactory("valor"));
+    private void initTableItens() {
         tcDescricao.setCellValueFactory(new PropertyValueFactory("descricao"));
+        tcValor.setCellValueFactory(new PropertyValueFactory("valor"));
         tcEstoque.setCellValueFactory(new PropertyValueFactory("estoque"));
 
         tbProdutos.setItems(listaProdutos);
     }
 
     private void initItens() {
-        btnAddProduto.setOnAction(new EventHandler<ActionEvent>() {
+        tfBusca.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                listaProdutos.clear();
+            }
+        });
+        btnGravar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (verificarProdutoValidos() && verificarCampusIdenticos()) {
+                    produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
+                    listaProdutos.add(produto);
+                    icrud = new ProdutoDAO();
+                    icrud.create(produto);
+                } else if (tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos() != null) {
+                    produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
+                    produto.setPkprodutos(tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos());
+                    listaProdutos.add(produto);
+                    icrud = new ProdutoDAO();
+                    icrud.create(produto);
+                }
+            }
+
+            private boolean verificarProdutoValidos() {
+                return !(tfValor.getText().matches("^\\d{1,2}\\.\\d{2}$")
+                        && tfDescricao.getText().matches("^\\w+$")
+                        && tfEstoque.getText().matches("^\\d{2,3} $"));
+
+            }
+
+            private boolean verificarCampusIdenticos() {
+                for (Produto produto : listaProdutos) {
+                    if (produto.getDescricao().equals(tfDescricao.getText())) {
+                        return false;
+                    }
+                }
+                return true;
+                //return !listaProdutos.stream().noneMatch((produto) -> (produto.getDescricao().equals(tfDescricao.getText())));
+            }
+        });
+        btnDeletar.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if (campusValidos(tfValor.getText(), tfDescricao.getText(), tfEstoque.getText())) {
 
-                    produto = new Produto(new BigDecimal(tfValor.getText()),
-                            tfDescricao.getText(), Integer.parseInt(tfEstoque.getText()));
-                    System.out.println(produto.toString());
-                    listaProdutos.add(produto);
-                }
+                produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
+                produto.setPkprodutos(tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos());
+                icrud = new ProdutoDAO();
+                listaProdutos.remove(tbProdutos.getSelectionModel().getSelectedItem());
+                icrud.delete(produto);
+
             }
         });
+        tbProdutos.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+            @Override
+            public void handle(MouseEvent event) {
+                tfValor.setText(tbProdutos.getSelectionModel().getSelectedItem().getValor().toString());
+                tfDescricao.setText(tbProdutos.getSelectionModel().getSelectedItem().getDescricao());
+                tfEstoque.setText(tbProdutos.getSelectionModel().getSelectedItem().getEstoque().toString());
+            }
+
+        });
+
+        btnBucar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                listaProdutos.clear();
+                icrud = new ProdutoDAO();
+                produtos = icrud.retriveByName(tfBusca.getText());
+                listaProdutos.setAll(produtos);
+            }
+        });
     }
 
-    private boolean campusValidos(String tfValor, String tfDescricao, String tfEstoque) {
-        return !(tfValor.matches("^\\d{1,2}\\.\\d{2}$")
-                && tfDescricao.matches("^\\w+$")
-                && tfEstoque.matches("^\\d{1,3}$"));
-    }
 }

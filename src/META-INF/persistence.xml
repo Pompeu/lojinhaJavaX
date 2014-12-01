@@ -6,10 +6,13 @@
     <class>lojinha.model.EnderecoCliente</class>
     <class>lojinha.model.EnderecoFornecedor</class>
     <class>lojinha.model.Fornecedor</class>
+    <class>lojinha.model.Produto</class>
+    <class>lojinha.model.Qtd</class>
     <class>lojinha.model.TelefoneCliente</class>
     <class>lojinha.model.TelefoneFornecedor</class>
+    <class>lojinha.model.Valor</class>
+    <class>lojinha.model.Vendas</class>
     <class>lojinha.model.Vendedor</class>
-    <class>lojinha.model.Produto</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/fxlojinha"/>

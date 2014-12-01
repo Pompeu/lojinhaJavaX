@@ -124,7 +124,6 @@ public class FXMLVendedorController implements Initializable {
             public void handle(ActionEvent event) {
                 icrud = new VendedorDAO(new JPAUtil().getManager());
                 venderes = icrud.retriveByName(tfBusca.getText());
-
                 listVendedores.setAll(venderes);
             }
         });

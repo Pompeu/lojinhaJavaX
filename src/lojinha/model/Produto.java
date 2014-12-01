@@ -39,17 +39,13 @@ public class Produto implements Serializable {
     @Column(nullable = false, length = 80)
     private String descricao;
     @Basic(optional = false)
-    @Column(name = "estoque_minimo", nullable = false)
+    @Column(nullable = false)
     private Integer estoque;
 
     public Produto() {
     }
 
-    public Produto(Integer pkProdutos) {
-        this.pkProdutos = pkProdutos;
-    }
-
-    public Produto(BigDecimal valor, String descricao, Integer estoque) {
+    public Produto(String descricao, BigDecimal valor, Integer estoque) {
         this.valor = valor;
         this.descricao = descricao;
         this.estoque = estoque;
@@ -79,11 +75,11 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public Integer getEstoqueMinimo() {
+    public Integer getEstoque() {
         return estoque;
     }
 
-    public void setEstoqueMinimo(Integer estoque) {
+    public void setEstoque(Integer estoque) {
         this.estoque = estoque;
     }
 

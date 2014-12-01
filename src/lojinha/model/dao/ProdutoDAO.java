@@ -45,6 +45,7 @@ public class ProdutoDAO implements ICRUD<Produto> {
     public void delete(Produto obj) {
         try {
             em.getTransaction().begin();
+            obj = retrivetbyId(obj.getPkprodutos());
             em.remove(obj);
             em.getTransaction().commit();
         } catch (Exception e) {
