@@ -69,7 +69,7 @@ public class FornecedorDAO implements ICRUD<Fornecedor> {
 
     @Override
     public List<Fornecedor> retriveByName(String nome) {
-        String consulta = "select c from Fornecedor c where c.nomeFantasia like :pNome";
+        String consulta = "select c from Fornecedor c where c.nome like :pNome";
 
         TypedQuery<Fornecedor> query = em.createQuery(consulta, Fornecedor.class);
 

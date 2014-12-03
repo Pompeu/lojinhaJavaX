@@ -12,7 +12,7 @@ public abstract class Produto_ {
 	public static volatile SingularAttribute<Produto, Integer> estoque;
 	public static volatile SingularAttribute<Produto, Integer> pkProdutos;
 	public static volatile SingularAttribute<Produto, BigDecimal> valor;
-	public static volatile SingularAttribute<Produto, String> descricao;
+	public static volatile SingularAttribute<Produto, String> nome;
 
 }
 

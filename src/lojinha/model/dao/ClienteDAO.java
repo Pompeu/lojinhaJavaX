@@ -72,7 +72,7 @@ public class ClienteDAO implements ICRUD<Cliente> {
 
     @Override
     public List<Cliente> retriveByName(String nome) {
-        String consulta = "select c from Cliente c where c.nomeFantasia like :pNome";
+        String consulta = "select c from Cliente c where c.nome like :pNome";
 
         TypedQuery<Cliente> query = em.createQuery(consulta, Cliente.class);
 

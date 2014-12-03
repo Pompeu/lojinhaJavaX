@@ -8,7 +8,6 @@ package lojinha.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import lojinha.model.Cliente;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
 
@@ -72,7 +71,7 @@ public class ProdutoDAO implements ICRUD<Produto> {
 
     @Override
     public List<Produto> retriveByName(String descricao) {
-        String consulta = "select p from Produto p where p.descricao like :pDescricao";
+        String consulta = "select p from Produto p where p.nome like :pDescricao";
 
         TypedQuery<Produto> query = em.createQuery(consulta, Produto.class);
 

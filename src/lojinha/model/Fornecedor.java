@@ -39,7 +39,7 @@ public class Fornecedor implements Serializable {
     private String cnpj;
     @Basic(optional = false)
     @Column(name = "nome_fantasia", nullable = false, length = 80)
-    private String nomeFantasia;
+    private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkFornecedor")
     private List<TelefoneFornecedor> telefonefornecedoresList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkFornecedor")
@@ -51,7 +51,7 @@ public class Fornecedor implements Serializable {
     public Fornecedor(String razaoSocial, String cnpj, String nomeFantasia) {
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
-        this.nomeFantasia = nomeFantasia;
+        this.nome = nomeFantasia;
     }
 
     public Integer getPkfornecedores() {
@@ -79,11 +79,11 @@ public class Fornecedor implements Serializable {
     }
 
     public String getNomeFantasia() {
-        return nomeFantasia;
+        return nome;
     }
 
     public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
+        this.nome = nomeFantasia;
     }
 
     public List<TelefoneFornecedor> getTelefonefornecedoresList() {
@@ -124,7 +124,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "Fornecedor{" + "pkfornecedores=" + pkfornecedores + ", razaoSocial=" + razaoSocial + ", cnpj=" + cnpj + ", nomeFantasia=" + nomeFantasia + '}';
+        return "Fornecedor{" + "pkfornecedores=" + pkfornecedores + ", razaoSocial=" + razaoSocial + ", cnpj=" + cnpj + ", nomeFantasia=" + nome + '}';
     }
 
 }

@@ -10,9 +10,9 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Fornecedor_ {
 
 	public static volatile ListAttribute<Fornecedor, EnderecoFornecedor> enderecofornecedorList;
-	public static volatile SingularAttribute<Fornecedor, String> nomeFantasia;
 	public static volatile SingularAttribute<Fornecedor, Integer> pkfornecedores;
 	public static volatile ListAttribute<Fornecedor, TelefoneFornecedor> telefonefornecedoresList;
+	public static volatile SingularAttribute<Fornecedor, String> nome;
 	public static volatile SingularAttribute<Fornecedor, String> cnpj;
 	public static volatile SingularAttribute<Fornecedor, String> razaoSocial;
 

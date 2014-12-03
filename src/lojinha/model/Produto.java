@@ -38,8 +38,8 @@ public class Produto implements Serializable {
     @Column(nullable = false, precision = 6, scale = 2)
     private BigDecimal valor;
     @Basic(optional = false)
-    @Column(nullable = false, length = 80)
-    private String descricao;
+    @Column(name = "descricao", nullable = false, length = 80)
+    private String nome;
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer estoque;
@@ -49,7 +49,7 @@ public class Produto implements Serializable {
 
     public Produto(String descricao, BigDecimal valor, Integer estoque) {
         this.valor = valor;
-        this.descricao = descricao;
+        this.nome = descricao;
         this.estoque = estoque;
     }
 
@@ -70,11 +70,11 @@ public class Produto implements Serializable {
     }
 
     public String getDescricao() {
-        return descricao;
+        return nome;
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.nome = descricao;
     }
 
     public Integer getEstoque() {
@@ -107,7 +107,9 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return "Produto{" + "pkprodutos=" + pkProdutos + ", valor=" + valor + ", descricao=" + descricao + ", estoque=" + estoque + '}';
+        return "Produto{" + "pkProdutos=" + pkProdutos + ", valor=" + valor + ", nome=" + nome + ", estoque=" + estoque + '}';
     }
+
+   
 
 }

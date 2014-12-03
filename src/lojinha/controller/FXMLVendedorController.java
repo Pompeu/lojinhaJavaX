@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Vendedor;
+import lojinha.model.dao.DAO;
 import lojinha.model.dao.ICRUD;
 import lojinha.model.dao.VendedorDAO;
 
@@ -57,7 +58,7 @@ public class FXMLVendedorController implements Initializable {
     private Button btnBuscar;
     @FXML
     private TextField tfBusca;
-    private ICRUD<Vendedor> icrud;
+    private DAO<Vendedor> icrud;
     private Vendedor vendedor;
     private List<Vendedor> venderes;
 
@@ -90,16 +91,18 @@ public class FXMLVendedorController implements Initializable {
                         && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), tfNascimento.getText())) {
 
                     vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
-                    icrud = new VendedorDAO(new JPAUtil().getManager());
+                    icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
+
                     icrud.create(vendedor);
+
                     listVendedores.add(vendedor);
                 } else if (!verificaVendedorRepetidos(tfCPF.getText())
                         && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), tfNascimento.getText())) {
 
                     vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
                     vendedor.setPkvendedores(tbVendedor.getSelectionModel().getSelectedItem().getPkvendedores());
-                    icrud = new VendedorDAO(new JPAUtil().getManager());
-                    icrud.create(vendedor);
+                    icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
+                    icrud.update(vendedor);
                 }
 
             }
@@ -110,7 +113,7 @@ public class FXMLVendedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                icrud = new VendedorDAO(new JPAUtil().getManager());
+                icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
                 vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
                 vendedor.setPkvendedores(tbVendedor.getSelectionModel().getSelectedItem().getPkvendedores());
                 icrud.delete(vendedor);
@@ -122,7 +125,7 @@ public class FXMLVendedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                icrud = new VendedorDAO(new JPAUtil().getManager());
+                icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
                 venderes = icrud.retriveByName(tfBusca.getText());
                 listVendedores.setAll(venderes);
             }

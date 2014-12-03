@@ -32,7 +32,7 @@ public class Cliente implements Serializable {
     private Integer pkcliente;
     @Basic(optional = false)
     @Column(name = "nome_fantasia")
-    private String nomeFantasia;
+    private String nome;
     @Basic(optional = false)
     @Column(name = "razao_social")
     private String razaoSocial;
@@ -41,14 +41,14 @@ public class Cliente implements Serializable {
     private String cnpj;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
     private List<TelefoneCliente> telefoneClienteList;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "fkCliente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkCliente")
     private List<EnderecoCliente> enderecoClienteList;
 
     public Cliente() {
     }
 
-    public Cliente(String cnpj,String nomeFantasia, String razaoSocial ) {
-        this.nomeFantasia = nomeFantasia;
+    public Cliente(String cnpj, String nomeFantasia, String razaoSocial) {
+        this.nome = nomeFantasia;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
     }
@@ -62,11 +62,11 @@ public class Cliente implements Serializable {
     }
 
     public String getNomeFantasia() {
-        return nomeFantasia;
+        return nome;
     }
 
     public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
+        this.nome = nomeFantasia;
     }
 
     public String getRazaoSocial() {
@@ -123,7 +123,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "lojinha.model.Cliente[ pkcliente=" + pkcliente + " ]";
+        return "Cliente{" + "pkcliente=" + pkcliente + ", nome=" + nome + ", razaoSocial=" + razaoSocial + ", cnpj=" + cnpj + '}';
     }
 
 }

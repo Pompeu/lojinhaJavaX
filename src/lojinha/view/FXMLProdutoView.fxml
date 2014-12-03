@@ -21,6 +21,7 @@
         <TextField fx:id="tfEstoque" layoutX="130.0" layoutY="123.0" />
         <Button fx:id="btnGravar" layoutX="31.0" layoutY="199.0" mnemonicParsing="false" text="Gravar" />
         <Button fx:id="btnDeletar" layoutX="130.0" layoutY="199.0" mnemonicParsing="false" text="Deletar" />
+        <Button fx:id="btnLimpar" layoutX="214.0" layoutY="198.0" mnemonicParsing="false" text="Limpar" />
         <TableView fx:id="tbProdutos" layoutX="28.0" layoutY="242.0" prefHeight="200.0" prefWidth="554.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="tcDescricao" editable="false" prefWidth="368.0" resizable="false" text="Descricao" />
@@ -29,8 +30,7 @@
                 <TableColumn fx:id="tcpkKey" editable="false" minWidth="0.0" prefWidth="253.0" resizable="false" text="pkKey" visible="false" />
             </columns>
         </TableView>
-        <Button fx:id="btnBucar" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" text="Buscar por Descriçao" />
-        <TextField fx:id="tfBusca" layoutX="406.0" layoutY="159.0" />
-        <Text layoutX="406.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar Por Descricao" />
+        <TextField fx:id="tfBusca" layoutX="406.0" layoutY="198.0" />
+        <Text layoutX="406.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar Por Descricao" />
     </children>
 </AnchorPane>

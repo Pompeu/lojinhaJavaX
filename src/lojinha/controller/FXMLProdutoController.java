@@ -20,10 +20,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
-import lojinha.model.dao.ICRUD;
-import lojinha.model.dao.ProdutoDAO;
+import lojinha.model.dao.DAO;
 
 /**
  * FXML Controller class
@@ -55,11 +56,12 @@ public class FXMLProdutoController implements Initializable {
     private TableColumn tcpkKey;
     @FXML
     private TextField tfBusca;
-    @FXML
     private Button btnBucar;
     private Produto produto = new Produto();
     private List<Produto> produtos;
-    private ICRUD<Produto> icrud;
+    private DAO<Produto> icrud;
+    @FXML
+    private Button btnLimpar;
 
     /**
      * Initializes the controller class.
@@ -91,17 +93,20 @@ public class FXMLProdutoController implements Initializable {
         btnGravar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (verificarProdutoValidos() && verificarCampusIdenticos()) {
+                if (verificarProdutoValidos()
+                        && verificarCampusIdenticos()) {
                     produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
+                    limparCampus();
                     listaProdutos.add(produto);
-                    icrud = new ProdutoDAO();
+                    icrud = new DAO<>(Produto.class, new JPAUtil().getManager());
                     icrud.create(produto);
                 } else if (tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos() != null) {
                     produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
                     produto.setPkprodutos(tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos());
+                    limparCampus();
                     listaProdutos.add(produto);
-                    icrud = new ProdutoDAO();
-                    icrud.create(produto);
+                    icrud = new DAO<>(Produto.class, new JPAUtil().getManager());
+                    icrud.update(produto);
                 }
             }
 
@@ -113,7 +118,8 @@ public class FXMLProdutoController implements Initializable {
 
                 produto = new Produto(tfDescricao.getText(), new BigDecimal(tfValor.getText()), Integer.parseInt(tfEstoque.getText()));
                 produto.setPkprodutos(tbProdutos.getSelectionModel().getSelectedItem().getPkprodutos());
-                icrud = new ProdutoDAO();
+                icrud = new DAO<>(Produto.class, new JPAUtil().getManager());
+                produto = icrud.retrivetbyId(produto.getPkprodutos());
                 listaProdutos.remove(tbProdutos.getSelectionModel().getSelectedItem());
                 icrud.delete(produto);
 
@@ -130,14 +136,25 @@ public class FXMLProdutoController implements Initializable {
                 }
             }
         });
+        tfBusca.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-        btnBucar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        icrud = new DAO<>(Produto.class, new JPAUtil().getManager());                       
+                        produtos = icrud.retriveByName(tfBusca.getText());
+                        listaProdutos.setAll(produtos);
+                    }
+                }).start();
+            }
+        });
+        btnLimpar.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
-                listaProdutos.clear();
-                icrud = new ProdutoDAO();
-                produtos = icrud.retriveByName(tfBusca.getText());
-                listaProdutos.setAll(produtos);
+                limparCampus();
             }
         });
     }
@@ -155,8 +172,16 @@ public class FXMLProdutoController implements Initializable {
                 return false;
             }
         }
-        return true;
+
+        return true && tbProdutos.getSelectionModel().getSelectedIndex() == -1;
         //return !listaProdutos.stream().noneMatch((produto) -> (produto.getDescricao().equals(tfDescricao.getText())));
     }
 
+    private void limparCampus() {
+        listaProdutos.clear();
+        tfBusca.clear();
+        tfDescricao.clear();
+        tfEstoque.clear();
+        tfValor.clear();
+    }
 }
