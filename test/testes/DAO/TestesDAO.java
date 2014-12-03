@@ -8,6 +8,7 @@ package testes.DAO;
 import java.math.BigDecimal;
 import java.util.List;
 import lojinha.model.Cliente;
+import lojinha.model.EnderecoCliente;
 import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
@@ -30,8 +31,8 @@ import static org.junit.Assert.*;
  */
 public class TestesDAO {
 
-    public TestesDAO() {
-    }
+    private ICRUD<Cliente> icrudCliente;
+    private ICRUD<Fornecedor> icrudFornecedor;
 
     @BeforeClass
     public static void setUpClass() {
@@ -43,6 +44,8 @@ public class TestesDAO {
 
     @Before
     public void setUp() {
+        icrudCliente = new ClienteDAO(new JPAUtil().getManager());
+        icrudFornecedor = new FornecedorDAO(new JPAUtil().getManager());
     }
 
     @After
@@ -53,8 +56,8 @@ public class TestesDAO {
     public void deveRecuperaUmCliente() {
         Cliente c;
 
-        ICRUD<Cliente> clienteDAO = new ClienteDAO();
-        c = clienteDAO.retrivetbyId(32);
+        
+        c = icrudCliente.retrivetbyId(32);
         assertEquals(c.getNomeFantasia(), "lojinha doida");
         assertEquals(c.getCnpj(), "00001002000278");
 
@@ -62,18 +65,18 @@ public class TestesDAO {
 
     @Test
     public void deveRecuperarTodosClietes() {
-        ICRUD<Cliente> clienteDAO = new ClienteDAO();
-        List<Cliente> clientes = clienteDAO.retrivetAll();
+        
+        List<Cliente> clientes = icrudCliente.retrivetAll();
         assertFalse(clientes.isEmpty());
 
     }
 
     @Test
     public void deveRecuperarClientesPeloNome() {
-        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+        
         String nome = "doida";
 
-        List<Cliente> clientes = clienteDAO.retriveByName(nome);
+        List<Cliente> clientes = icrudCliente.retriveByName(nome);
 
         assertFalse(clientes.isEmpty());
 
@@ -81,40 +84,57 @@ public class TestesDAO {
 
     @Test
     public void deveRecuperaUmClientePeloCNPJ() {
-        ICRUD<Cliente> clienteDAO = new ClienteDAO();
+        
         String cnpj = "00001002000278";
 
-        Cliente cliente = clienteDAO.retriveByCNPJOrCPF(cnpj);
+        Cliente cliente = icrudCliente.retriveByCNPJOrCPF(cnpj);
 
         assertEquals(cliente.getNomeFantasia(), "lojinha doida");
     }
 
     @Test
+    public void deveDeletarUmTelefoneDeUmClienteByPk() {
+        
+        Cliente c = icrudCliente.retrivetbyId(32);
+        List<EnderecoCliente> enderecoClientes = c.getEnderecoClienteList();
+        long pkTelefone = 0;
+        for (EnderecoCliente enderecoCliente : enderecoClientes) {
+            System.out.println(enderecoCliente.toString());
+            if (enderecoCliente.getPkendereco() == 113) {
+                pkTelefone = enderecoCliente.getPkendereco();
+            }
+        }
+
+        assertEquals(pkTelefone, 113);
+
+    }
+
+    @Test
     public void deveRetornarUmFornecdorPeloId() {
-        ICRUD<Fornecedor> icrud = new FornecedorDAO();
-        Fornecedor f = icrud.retrivetbyId(3);
+       
+        Fornecedor f = icrudFornecedor.retrivetbyId(3);
         assertEquals(f.getNomeFantasia(), "CTBC");
 
     }
 
     @Test
     public void deveRetornarTodosFornecedores() {
-        ICRUD<Fornecedor> icrud = new FornecedorDAO();
-        List<Fornecedor> fornecedors = icrud.retrivetAll();
+        
+        List<Fornecedor> fornecedors = icrudFornecedor.retrivetAll();
         assertFalse(fornecedors.isEmpty());
     }
 
     @Test
     public void deveRetornarUmFornecedorPeloNome() {
-        ICRUD<Fornecedor> icrud = new FornecedorDAO();
-        List<Fornecedor> fornecedors = icrud.retriveByName("Cascarinha Solution");
+        
+        List<Fornecedor> fornecedors = icrudFornecedor.retriveByName("Cascarinha Solution");
         assertFalse(fornecedors.isEmpty());
     }
 
     @Test
     public void deveRetornarUmFornecedorPeloCNPJ() {
-        ICRUD<Fornecedor> icrud = new FornecedorDAO();
-        Fornecedor fornecedor = icrud.retriveByCNPJOrCPF("02003002000178");
+        
+        Fornecedor fornecedor = icrudFornecedor.retriveByCNPJOrCPF("02003002000178");
         assertEquals(fornecedor.getNomeFantasia(), "OI");
     }
 
@@ -123,8 +143,8 @@ public class TestesDAO {
 
         ICRUD<Produto> icrud = new ProdutoDAO();
         //icrud.create(new Produto(new BigDecimal("10.26"), "Melancia Azul", 100));
-        Produto p = icrud.retrivetbyId(1);
-        assertEquals(p.getValor(), new BigDecimal("10.00"));
+        Produto p = icrud.retrivetbyId(41);
+        assertEquals(p.getValor(), new BigDecimal("2.80"));
     }
 
     @Test
@@ -137,7 +157,7 @@ public class TestesDAO {
     @Test
     public void deveRetornarUmProdutoProNome() {
         ICRUD<Produto> icrud = new ProdutoDAO();
-        List<Produto> produtos = icrud.retriveByName("Azul");
+        List<Produto> produtos = icrud.retriveByName("Arroz");
         assertTrue(produtos.size() > 0);
     }
 
@@ -145,8 +165,8 @@ public class TestesDAO {
     public void deveRecurarUmVendedor() {
         ICRUD<Vendedor> icrud = new VendedorDAO(new JPAUtil().getManager());
         //icrud.create(new Vendedor("PompeuLimp", "00311920179", "011182"));
-        Vendedor vendedor = icrud.retrivetbyId(2);
-        assertEquals(vendedor.getPkvendedores(), 2, 0);
+        Vendedor vendedor = icrud.retrivetbyId(5);
+        assertEquals(vendedor.getPkvendedores(), 5, 0);
     }
 
     @Test
@@ -157,4 +177,5 @@ public class TestesDAO {
 
         assertFalse(vendedores.isEmpty());
     }
+
 }

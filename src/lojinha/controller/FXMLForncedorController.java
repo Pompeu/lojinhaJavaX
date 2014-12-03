@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
+import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneFornecedor;
 import lojinha.model.dao.FornecedorDAO;
 import lojinha.model.dao.ICRUD;
@@ -93,8 +94,6 @@ public class FXMLForncedorController implements Initializable {
     private Button btnBuscar;
     private Fornecedor fornecedor = new Fornecedor();
     private ICRUD<Fornecedor> icrud;
-    private List<Fornecedor> fornecedores;
-
     /**
      * Initializes the controller class.
      *
@@ -138,7 +137,9 @@ public class FXMLForncedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                listaEnderecos.remove(tbEnderecos.getSelectionModel().getSelectedItem());
+                EnderecoFornecedor ef = tbEnderecos.getSelectionModel().getSelectedItem();
+                listaEnderecos.remove(ef);
+                fornecedor.getEnderecofornecedorList().remove(ef);
             }
         });
 
@@ -186,7 +187,9 @@ public class FXMLForncedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                listaTelefones.remove(tbTelefone.getSelectionModel().getSelectedItem());
+                TelefoneFornecedor tf = tbTelefone.getSelectionModel().getSelectedItem();
+                listaTelefones.remove(tf);
+                fornecedor.getTelefonefornecedoresList().remove(tf);
             }
         });
         btnGravar.setOnAction(new EventHandler<ActionEvent>() {
@@ -198,7 +201,7 @@ public class FXMLForncedorController implements Initializable {
                 fornecedor.setEnderecofornecedorList(listaEnderecos);
                 fornecedor.setTelefonefornecedoresList(listaTelefones);
 
-                icrud = new FornecedorDAO();
+                icrud = new FornecedorDAO(new JPAUtil().getManager());
                 icrud.create(fornecedor);
             }
         });
@@ -207,7 +210,7 @@ public class FXMLForncedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                icrud = new FornecedorDAO();
+                icrud = new FornecedorDAO(new JPAUtil().getManager());
                 fornecedor = icrud.retriveByCNPJOrCPF(tfCNPJ.getText());
                 prencherFormulario(fornecedor);
             }

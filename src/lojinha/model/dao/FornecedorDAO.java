@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import lojinha.model.Fornecedor;
-import lojinha.model.JPA.JPAUtil;
 
 /**
  *
@@ -19,8 +18,8 @@ public class FornecedorDAO implements ICRUD<Fornecedor> {
 
     private final EntityManager em;
 
-    public FornecedorDAO() {
-        em = new JPAUtil().getManager();
+    public FornecedorDAO(EntityManager em) {
+        this.em = em;
     }
 
     @Override

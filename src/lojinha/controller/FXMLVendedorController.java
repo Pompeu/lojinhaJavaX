@@ -140,7 +140,6 @@ public class FXMLVendedorController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 if (!tbVendedor.getSelectionModel().isEmpty()) {
-
                     tfNome.setText(tbVendedor.getSelectionModel().getSelectedItem().getNome());
                     tfCPF.setText(tbVendedor.getSelectionModel().getSelectedItem().getCpf());
                     tfNascimento.setText(tbVendedor.getSelectionModel().getSelectedItem().getNascimento());

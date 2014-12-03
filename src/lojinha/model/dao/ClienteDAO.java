@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import lojinha.model.Cliente;
-import lojinha.model.JPA.JPAUtil;
 
 /**
  *
@@ -18,10 +17,10 @@ import lojinha.model.JPA.JPAUtil;
 public class ClienteDAO implements ICRUD<Cliente> {
 
     private final EntityManager em;
-    
-    public ClienteDAO() {
 
-        this.em = new JPAUtil().getManager();
+    public ClienteDAO(EntityManager em) {
+
+        this.em = em;
     }
 
     @Override
@@ -66,7 +65,6 @@ public class ClienteDAO implements ICRUD<Cliente> {
         return query.getResultList();
     }
 
-    
     @Override
     public Cliente retrivetbyId(Integer id) {
         return em.find(Cliente.class, id);
@@ -75,22 +73,23 @@ public class ClienteDAO implements ICRUD<Cliente> {
     @Override
     public List<Cliente> retriveByName(String nome) {
         String consulta = "select c from Cliente c where c.nomeFantasia like :pNome";
-        
-        TypedQuery<Cliente>  query = em.createQuery(consulta, Cliente.class);
-        
-        query.setParameter("pNome", "%"+nome+"%");
+
+        TypedQuery<Cliente> query = em.createQuery(consulta, Cliente.class);
+
+        query.setParameter("pNome", "%" + nome + "%");
 
         return query.getResultList();
     }
 
     @Override
     public Cliente retriveByCNPJOrCPF(String cnpj) {
-         String consulta = "select c from Cliente c where c.cnpj like :pCnpj";
-        
-        TypedQuery<Cliente>  query = em.createQuery(consulta, Cliente.class);
-        
-        query.setParameter("pCnpj", "%"+cnpj+"%");
+        String consulta = "select c from Cliente c where c.cnpj like :pCnpj";
+
+        TypedQuery<Cliente> query = em.createQuery(consulta, Cliente.class);
+
+        query.setParameter("pCnpj", "%" + cnpj + "%");
 
         return query.getSingleResult();
     }
+
 }

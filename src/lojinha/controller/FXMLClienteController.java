@@ -21,10 +21,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
+import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneCliente;
 import lojinha.model.dao.ClienteDAO;
 import lojinha.model.dao.ICRUD;
@@ -77,7 +77,7 @@ public class FXMLClienteController implements Initializable {
     @FXML
     private TextField tfDDD;
     @FXML
-    private Button btnBuscar;    
+    private Button btnBuscar;
     private ICRUD<Cliente> crudCliente;
     private Cliente cliente = new Cliente();
 
@@ -126,7 +126,9 @@ public class FXMLClienteController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                listaEnderecos.remove(tableEnderecos.getSelectionModel().getSelectedItem());
+                EnderecoCliente ec = tableEnderecos.getSelectionModel().getSelectedItem();
+                listaEnderecos.remove(ec);
+                cliente.getEnderecoClienteList().remove(ec);
             }
         });
 
@@ -169,7 +171,9 @@ public class FXMLClienteController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                listaTelefones.remove(tableTelefone.getSelectionModel().getSelectedItem());
+                TelefoneCliente tc = tableTelefone.getSelectionModel().getSelectedItem();
+                listaTelefones.remove(tc);
+                cliente.getTelefoneClienteList().remove(tc);
             }
         });
         tableTelefone.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -189,7 +193,7 @@ public class FXMLClienteController implements Initializable {
                 cliente.setNomeFantasia(tfNomeFantasia.getText());
                 cliente.setRazaoSocial(tfRazaSocial.getText());
 
-                crudCliente = new ClienteDAO();
+                crudCliente = new ClienteDAO(new JPAUtil().getManager());
 
                 crudCliente.create(cliente);
 
@@ -199,15 +203,15 @@ public class FXMLClienteController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                crudCliente = new ClienteDAO();
+                crudCliente = new ClienteDAO(new JPAUtil().getManager());
                 cliente = crudCliente.retriveByCNPJOrCPF(tfCnpj.getText());
                 prencherFormulario(cliente);
                 btnGravarCliente.setDisable(false);
-                
+
             }
 
             void prencherFormulario(Cliente cliente) {
-                
+
                 tfNomeFantasia.setText(cliente.getNomeFantasia());
                 tfCnpj.setText(cliente.getCnpj());
                 tfRazaSocial.setText(cliente.getRazaoSocial());

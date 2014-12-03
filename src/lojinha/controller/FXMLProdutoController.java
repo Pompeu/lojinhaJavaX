@@ -8,10 +8,7 @@ package lojinha.controller;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -108,22 +105,6 @@ public class FXMLProdutoController implements Initializable {
                 }
             }
 
-            private boolean verificarProdutoValidos() {
-                return !(tfValor.getText().matches("^\\d{1,2}\\.\\d{2}$")
-                        && tfDescricao.getText().matches("^\\w+$")
-                        && tfEstoque.getText().matches("^\\d{2,3} $"));
-
-            }
-
-            private boolean verificarCampusIdenticos() {
-                for (Produto produto : listaProdutos) {
-                    if (produto.getDescricao().equals(tfDescricao.getText())) {
-                        return false;
-                    }
-                }
-                return true;
-                //return !listaProdutos.stream().noneMatch((produto) -> (produto.getDescricao().equals(tfDescricao.getText())));
-            }
         });
         btnDeletar.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -142,11 +123,12 @@ public class FXMLProdutoController implements Initializable {
 
             @Override
             public void handle(MouseEvent event) {
-                tfValor.setText(tbProdutos.getSelectionModel().getSelectedItem().getValor().toString());
-                tfDescricao.setText(tbProdutos.getSelectionModel().getSelectedItem().getDescricao());
-                tfEstoque.setText(tbProdutos.getSelectionModel().getSelectedItem().getEstoque().toString());
+                if (!tbProdutos.getSelectionModel().isEmpty()) {
+                    tfValor.setText(tbProdutos.getSelectionModel().getSelectedItem().getValor().toString());
+                    tfDescricao.setText(tbProdutos.getSelectionModel().getSelectedItem().getDescricao());
+                    tfEstoque.setText(tbProdutos.getSelectionModel().getSelectedItem().getEstoque().toString());
+                }
             }
-
         });
 
         btnBucar.setOnAction(new EventHandler<ActionEvent>() {
@@ -158,6 +140,23 @@ public class FXMLProdutoController implements Initializable {
                 listaProdutos.setAll(produtos);
             }
         });
+    }
+
+    private boolean verificarProdutoValidos() {
+        return !(tfValor.getText().matches("^\\d{1,2}\\.\\d{2}$")
+                && tfDescricao.getText().matches("^\\w+$")
+                && tfEstoque.getText().matches("^\\d{2,3} $"));
+
+    }
+
+    private boolean verificarCampusIdenticos() {
+        for (Produto produto : listaProdutos) {
+            if (produto.getDescricao().equals(tfDescricao.getText())) {
+                return false;
+            }
+        }
+        return true;
+        //return !listaProdutos.stream().noneMatch((produto) -> (produto.getDescricao().equals(tfDescricao.getText())));
     }
 
 }
