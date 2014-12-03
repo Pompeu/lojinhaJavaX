@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLVendedorController">
+<AnchorPane id="AnchorPane" prefHeight="487.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLVendedorController">
     <stylesheets>
         <URL value="@fxmlclienteview.css" />
     </stylesheets>
@@ -18,13 +18,12 @@
         <Text layoutX="251.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nascimento" />
         <TextField fx:id="tfNome" layoutX="49.0" layoutY="69.0" prefHeight="25.0" prefWidth="513.0" />
         <TextField fx:id="tfCPF" layoutX="49.0" layoutY="133.0" />
-        <TextField fx:id="tfNascimento" layoutX="247.0" layoutY="133.0" />
         <Text layoutX="191.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro Vendedor">
             <font>
                 <Font size="26.0" />
             </font>
         </Text>
-        <TableView fx:id="tbVendedor" layoutX="34.0" layoutY="270.0" prefHeight="188.0" prefWidth="535.0" tableMenuButtonVisible="true">
+        <TableView fx:id="tbVendedor" layoutX="34.0" layoutY="230.0" prefHeight="246.0" prefWidth="538.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="tcNome" prefWidth="253.0" resizable="false" text="Nome" />
                 <TableColumn fx:id="tcCPF" prefWidth="156.0" resizable="false" text="CPF" />
@@ -32,10 +31,11 @@
                 <TableColumn fx:id="tcpkKey" editable="false" minWidth="0.0" prefWidth="253.0" resizable="false" text="pkKey" visible="false" />
             </columns>
         </TableView>
-        <Button fx:id="btnGravar" layoutX="50.0" layoutY="188.0" mnemonicParsing="false" text="Gravar Vendedor" />
-        <Button fx:id="btnDeletar" layoutX="212.0" layoutY="187.0" mnemonicParsing="false" text="Deletar Vendedor" />
-        <Button fx:id="btnBuscar" layoutX="412.0" layoutY="230.0" mnemonicParsing="false" text="Buscar um Vendador" />
-        <TextField fx:id="tfBusca" layoutX="357.0" layoutY="188.0" prefHeight="25.0" prefWidth="206.0" />
-        <Text layoutX="357.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite num nome Para Buscar" />
+        <Button fx:id="btnGravar" layoutX="35.0" layoutY="194.0" mnemonicParsing="false" text="Gravar" />
+        <Button fx:id="btnDeletar" layoutX="127.0" layoutY="194.0" mnemonicParsing="false" text="Deletar" />
+        <Button fx:id="btnLimpar" layoutX="226.0" layoutY="195.0" mnemonicParsing="false" text="Limpar " />
+        <TextField fx:id="tfBusca" layoutX="357.0" layoutY="193.0" prefHeight="25.0" prefWidth="206.0" />
+        <Text layoutX="357.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite num nome Para Buscar" />
+      <DatePicker fx:id="dataPicker" layoutX="248.0" layoutY="134.0" />
     </children>
 </AnchorPane>

@@ -5,7 +5,12 @@
  */
 package lojinha.controller;
 
+import com.sun.javafx.css.converters.StringConverter;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -15,10 +20,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Vendedor;
@@ -38,8 +45,6 @@ public class FXMLVendedorController implements Initializable {
     @FXML
     private TextField tfCPF;
     @FXML
-    private TextField tfNascimento;
-    @FXML
     private TableView<Vendedor> tbVendedor;
     private final ObservableList<Vendedor> listVendedores = FXCollections.observableArrayList();
     @FXML
@@ -55,12 +60,14 @@ public class FXMLVendedorController implements Initializable {
     @FXML
     private Button btnDeletar;
     @FXML
-    private Button btnBuscar;
-    @FXML
     private TextField tfBusca;
     private DAO<Vendedor> icrud;
     private Vendedor vendedor;
     private List<Vendedor> venderes;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private DatePicker dataPicker;
 
     /**
      * Initializes the controller class.
@@ -88,20 +95,20 @@ public class FXMLVendedorController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (verificaVendedorRepetidos(tfCPF.getText())
-                        && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), tfNascimento.getText())) {
+                        && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), dataPicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE))) {
 
-                    vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
+                    vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), dataPicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE));
                     icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
 
                     icrud.create(vendedor);
-
                     listVendedores.add(vendedor);
                 } else if (!verificaVendedorRepetidos(tfCPF.getText())
-                        && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), tfNascimento.getText())) {
+                        && verificarCaposValidos(tfNome.getText(), tfCPF.getText(), dataPicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE))) {
 
-                    vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
+                    vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), dataPicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE));
                     vendedor.setPkvendedores(tbVendedor.getSelectionModel().getSelectedItem().getPkvendedores());
                     icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
+                    limparCampus();
                     icrud.update(vendedor);
                 }
 
@@ -114,30 +121,35 @@ public class FXMLVendedorController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
-                vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), tfNascimento.getText());
+                vendedor = new Vendedor(tfNome.getText(), tfCPF.getText(), dataPicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE));
                 vendedor.setPkvendedores(tbVendedor.getSelectionModel().getSelectedItem().getPkvendedores());
                 icrud.delete(vendedor);
                 listVendedores.remove(tbVendedor.getSelectionModel().getSelectedItem());
             }
         });
 
-        btnBuscar.setOnAction(new EventHandler<ActionEvent>() {
+        tfBusca.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
+                        venderes = icrud.retriveByName(tfBusca.getText());
+                        listVendedores.setAll(venderes);
+                    }
+                }).start();
+            }
+        });
+        btnLimpar.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
-                venderes = icrud.retriveByName(tfBusca.getText());
-                listVendedores.setAll(venderes);
+                limparCampus();
             }
-        });
 
-        tfBusca.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                listVendedores.clear();
-            }
         });
-
         tbVendedor.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -145,10 +157,23 @@ public class FXMLVendedorController implements Initializable {
                 if (!tbVendedor.getSelectionModel().isEmpty()) {
                     tfNome.setText(tbVendedor.getSelectionModel().getSelectedItem().getNome());
                     tfCPF.setText(tbVendedor.getSelectionModel().getSelectedItem().getCpf());
-                    tfNascimento.setText(tbVendedor.getSelectionModel().getSelectedItem().getNascimento());
+
+                    String data = tbVendedor.getSelectionModel().getSelectedItem().getNascimento();
+                    int ano = Integer.parseInt(data.substring(0, 4));
+                    int mes = Integer.parseInt(data.substring(5, 7));
+                    int dia = Integer.parseInt(data.substring(8, 10));
+
+                    dataPicker.setValue(LocalDate.of(ano, mes, dia));
                 }
             }
         });
+    }
+
+    private void limparCampus() {
+        tfBusca.clear();
+        tfCPF.clear();
+        tfNome.clear();
+        listVendedores.clear();
     }
 
     private boolean verificaVendedorRepetidos(String cpf) {
