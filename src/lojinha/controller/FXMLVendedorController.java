@@ -8,6 +8,8 @@ package lojinha.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,8 +128,8 @@ public class FXMLVendedorController implements Initializable {
         tfBusca.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                new Thread(new Runnable() {
 
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         icrud = new DAO<>(Vendedor.class, new JPAUtil().getManager());
@@ -135,6 +137,7 @@ public class FXMLVendedorController implements Initializable {
                         listVendedores.setAll(venderes);
                     }
                 }).start();
+
             }
         });
         btnLimpar.setOnAction(new EventHandler<ActionEvent>() {
@@ -186,6 +189,7 @@ public class FXMLVendedorController implements Initializable {
         tfData.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(8));
         tfCPF.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(11));
         tfNome.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfBusca.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
     }
 
 }
