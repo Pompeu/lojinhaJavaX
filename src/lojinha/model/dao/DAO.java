@@ -72,13 +72,8 @@ public class DAO<T> implements Serializable {
     }
 
     public T retriveByCNPJOrCPF(String numero) {
-        String cpfCnpj = null;
-        if (numero.length() == 11) {
-            cpfCnpj = "cpf";
-        } else if ((numero.length() == 14)) {
-            cpfCnpj = "cnpj";
-        }
-        String consulta = "select c from " + classe.getName() + " c where c." + cpfCnpj + " like :pCpfCnpj";
+
+        String consulta = "select c from " + classe.getName() + " c where c." + EcpfCnpj.CPFCNPJ.cpfOrCpnj(numero.length()) + " like :pCpfCnpj";
 
         TypedQuery<Class> query = em.createQuery(consulta, Class.class);
 
@@ -87,4 +82,18 @@ public class DAO<T> implements Serializable {
         return (T) query.getSingleResult();
     }
 
+}
+
+enum EcpfCnpj {
+
+    CPFCNPJ {
+                @Override
+                public String cpfOrCpnj(int tam) {
+                    return tam < 14 ? "cpf" : "cnpj";
+
+                }
+
+            };
+
+    public abstract String cpfOrCpnj(int tam);
 }

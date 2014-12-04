@@ -85,7 +85,7 @@ public class TesteDAOGenerico {
     @Test
     public void deveRecuperarUmVendedor() {
         DAO<Vendedor> dao = new DAO<>(Vendedor.class, new JPAUtil().getManager());
-        assertEquals(dao.retrivetbyId(14).getNome(), "Jose Maria");
+        assertEquals(dao.retrivetbyId(14).getNome(), "Jose Maria Oliveira");
     }
 
     @Test
