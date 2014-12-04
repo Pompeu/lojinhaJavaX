@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import lojinha.model.validator.Cnpj;
+import lojinha.model.validator.NomeValido;
 
 /**
  *
@@ -32,12 +34,14 @@ public class Cliente implements Serializable {
     private Integer pkcliente;
     @Basic(optional = false)
     @Column(name = "nome_fantasia")
+    @NomeValido
     private String nome;
     @Basic(optional = false)
     @Column(name = "razao_social")
     private String razaoSocial;
     @Basic(optional = false)
     @Column(name = "cnpj")
+    @Cnpj
     private String cnpj;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcliente")
     private List<TelefoneCliente> telefoneClienteList;
