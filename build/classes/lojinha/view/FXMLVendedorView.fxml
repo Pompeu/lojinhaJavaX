@@ -36,6 +36,6 @@
         <Button fx:id="btnLimpar" layoutX="226.0" layoutY="195.0" mnemonicParsing="false" text="Limpar " />
         <TextField fx:id="tfBusca" layoutX="357.0" layoutY="193.0" prefHeight="25.0" prefWidth="206.0" />
         <Text layoutX="357.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite num nome Para Buscar" />
-      <DatePicker fx:id="dataPicker" layoutX="248.0" layoutY="134.0" />
+      <TextField fx:id="tfData" layoutX="243.0" layoutY="133.0" />
     </children>
 </AnchorPane>

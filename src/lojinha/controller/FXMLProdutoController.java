@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lojinha.controller.validator.Validador;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
 import lojinha.model.dao.DAO;
@@ -73,6 +74,7 @@ public class FXMLProdutoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTableItens();
         initItens();
+        validarCampus();
     }
 
     private void initTableItens() {
@@ -143,7 +145,7 @@ public class FXMLProdutoController implements Initializable {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        icrud = new DAO<>(Produto.class, new JPAUtil().getManager());                       
+                        icrud = new DAO<>(Produto.class, new JPAUtil().getManager());
                         produtos = icrud.retriveByName(tfBusca.getText());
                         listaProdutos.setAll(produtos);
                     }
@@ -183,5 +185,12 @@ public class FXMLProdutoController implements Initializable {
         tfDescricao.clear();
         tfEstoque.clear();
         tfValor.clear();
+    }
+
+    private void validarCampus() {
+        tfBusca.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(10));
+        tfDescricao.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(25));
+        tfValor.addEventFilter(KeyEvent.KEY_TYPED, Validador.valores(5));
+        tfEstoque.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(3));
     }
 }

@@ -20,7 +20,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lojinha.controller.validator.Validador;
 import lojinha.model.EnderecoFornecedor;
 import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
@@ -94,6 +96,7 @@ public class FXMLForncedorController implements Initializable {
     private Button btnBuscar;
     private Fornecedor fornecedor = new Fornecedor();
     private ICRUD<Fornecedor> icrud;
+
     /**
      * Initializes the controller class.
      *
@@ -104,6 +107,7 @@ public class FXMLForncedorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initItensList();
         initItens();
+        validarCampus();
     }
 
     private void initItens() {
@@ -112,7 +116,7 @@ public class FXMLForncedorController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (refirifcaEnderecoRepetido(tfCep.getText(), tfLogradouro.getText())) {
-                    listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
+                            listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
                             tfLogradouro.getText(), tfCidade.getText(),
                             tfBairro.getText(), tfCep.getText(), cbEstados.getValue().toString(),
                             fornecedor));
@@ -250,6 +254,23 @@ public class FXMLForncedorController implements Initializable {
         tfBairro.setText("");
         tfCep.setText("");
         cbEstados.setValue(null);
+    }
+
+    private void validarCampus() {
+
+        tfNomeFantasia.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfRazaoSocial.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfCNPJ.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(14));
+
+        tfComplemento.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfLogradouro.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfCidade.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfBairro.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfCep.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(8));
+
+        tfDDD.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(3));
+        tfNumero.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(9));
+
     }
 
 }

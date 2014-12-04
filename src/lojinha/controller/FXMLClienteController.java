@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,7 +21,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lojinha.controller.validator.Validador;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
@@ -91,12 +94,12 @@ public class FXMLClienteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTableItens();
         initActionItens();
+        validarCampus();
 
     }
 
     private void initActionItens() {
 
-        btnGravarCliente.setDisable(true);
         btnSalvarEnderco.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -206,7 +209,6 @@ public class FXMLClienteController implements Initializable {
                 crudCliente = new ClienteDAO(new JPAUtil().getManager());
                 cliente = crudCliente.retriveByCNPJOrCPF(tfCnpj.getText());
                 prencherFormulario(cliente);
-                btnGravarCliente.setDisable(false);
 
             }
 
@@ -233,6 +235,17 @@ public class FXMLClienteController implements Initializable {
 
         tableEnderecos.setItems(listaEnderecos);
         tableTelefone.setItems(listaTelefones);
+    }
+
+    private void validarCampus() {
+        tfRazaSocial.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfLogradouro.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfNomeFantasia.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+
+        tfCnpj.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(14));
+        tfDDD.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(2));
+        tfNumeroTelefone.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(9));
+
     }
 
 }
