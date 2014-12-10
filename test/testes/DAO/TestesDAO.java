@@ -13,11 +13,11 @@ import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.Produto;
 import lojinha.model.Vendedor;
-import lojinha.model.dao.ClienteDAO;
-import lojinha.model.dao.FornecedorDAO;
-import lojinha.model.dao.ICRUD;
-import lojinha.model.dao.ProdutoDAO;
-import lojinha.model.dao.VendedorDAO;
+import lojinha.model.dao.NAOUSADOS.ClienteDAO;
+import lojinha.model.dao.NAOUSADOS.FornecedorDAO;
+import lojinha.model.dao.NAOUSADOS.ICRUD;
+import lojinha.model.dao.NAOUSADOS.ProdutoDAO;
+import lojinha.model.dao.NAOUSADOS.VendedorDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,7 +58,7 @@ public class TestesDAO {
 
         
         c = icrudCliente.retrivetbyId(32);
-        assertEquals(c.getNomeFantasia(), "lojinha doida");
+        assertEquals(c.getNome(), "lojinha doida");
         assertEquals(c.getCnpj(), "00001002000278");
 
     }
@@ -89,7 +89,7 @@ public class TestesDAO {
 
         Cliente cliente = icrudCliente.retriveByCNPJOrCPF(cnpj);
 
-        assertEquals(cliente.getNomeFantasia(), "lojinha doida");
+        assertEquals(cliente.getNome(), "lojinha doida");
     }
 
     @Test
@@ -113,7 +113,7 @@ public class TestesDAO {
     public void deveRetornarUmFornecdorPeloId() {
        
         Fornecedor f = icrudFornecedor.retrivetbyId(3);
-        assertEquals(f.getNomeFantasia(), "CTBC");
+        assertEquals(f.getNome(), "CTBC");
 
     }
 
@@ -135,7 +135,7 @@ public class TestesDAO {
     public void deveRetornarUmFornecedorPeloCNPJ() {
         
         Fornecedor fornecedor = icrudFornecedor.retriveByCNPJOrCPF("02003002000178");
-        assertEquals(fornecedor.getNomeFantasia(), "OI");
+        assertEquals(fornecedor.getNome(), "OI");
     }
 
     @Test

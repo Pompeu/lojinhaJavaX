@@ -37,7 +37,7 @@ public class DAO<T> implements Serializable {
 
     public void delete(T obj) {
         em.getTransaction().begin();
-        obj = em.find(classe, RefletionObjeto.getIdObjeto(obj));
+        obj = em.find(classe, PegarPkKeyTempoExecucao.getIdObjeto(obj));
         em.remove(obj);
         em.getTransaction().commit();
         em.close();

@@ -8,10 +8,10 @@ package testes.DAO;
 import javax.persistence.EntityManager;
 import lojinha.model.Cliente;
 import lojinha.model.JPA.JPAUtil;
-import lojinha.model.dao.RefletionObjeto;
-import lojinha.model.validator.Validador;
+import lojinha.model.dao.PegarPkKeyTempoExecucao;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import validadores.Validador;
 
 /**
  *
@@ -20,19 +20,20 @@ import static org.junit.Assert.*;
 public class TestarNoation {
 
     @Test(expected = Exception.class)
-    public void oNomeDeveSeralido() throws Exception {
+    public void testarNomeClienteInvalido() throws Exception {
         Cliente c = new Cliente();
-        c.setNomeFantasia("Pompeu12 li2mp");
-        Validador.Valida(c);
-        assertEquals(c, c);
+        c.setNome("Pompeu12 li2mp");
+        Validador.valida(c);
+        
     }
 
     @Test
-    public void nomeValido() throws Exception {
+    public void testarNomeClienteValido() throws Exception {
         Cliente c = new Cliente();
-        c.setNomeFantasia("Jose Euripedes Silva");
-        Validador.Valida(c);
-        assertEquals(c.getNomeFantasia(), "Jose Euripedes Silva");
+        c.setNome("Jose Euripedes Silva");
+        c.setCnpj("18457207000155");
+        Validador.valida(c);
+        assertEquals(c.getNome(), "Jose Euripedes Silva");
     }
 
     @Test
@@ -47,9 +48,9 @@ public class TestarNoation {
         assertEquals(c2.getPkcliente(), 32, 0.000000001);
         assertEquals(c3.getPkcliente(), 37, 0.000000001);
         
-        assertEquals(41, RefletionObjeto.getIdObjeto(c), 0.000000001);
-        assertEquals(32, RefletionObjeto.getIdObjeto(c2), 0.000000001);
-        assertEquals(37, RefletionObjeto.getIdObjeto(c3), 0.000000001);
+        assertEquals(41, PegarPkKeyTempoExecucao.getIdObjeto(c), 0.000000001);
+        assertEquals(32, PegarPkKeyTempoExecucao.getIdObjeto(c2), 0.000000001);
+        assertEquals(37, PegarPkKeyTempoExecucao.getIdObjeto(c3), 0.000000001);
     }
 
 }

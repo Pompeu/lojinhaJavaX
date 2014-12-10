@@ -3,30 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lojinha.model.dao;
+package lojinha.model.dao.NAOUSADOS;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import lojinha.model.Fornecedor;
+import lojinha.model.Cliente;
+import lojinha.model.Vendedor;
 
 /**
  *
  * @author pompeu
  */
-public class FornecedorDAO implements ICRUD<Fornecedor> {
+public class VendedorDAO implements ICRUD<Vendedor> {
 
     private final EntityManager em;
 
-    public FornecedorDAO(EntityManager em) {
+    public VendedorDAO(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void create(Fornecedor obj) {
+    public void create(Vendedor obj) {
         try {
             em.getTransaction().begin();
-            if (obj.getPkfornecedores() == null) {
+            if (obj.getPkvendedores() == null) {
                 em.persist(obj);
             } else {
                 em.merge(obj);
@@ -40,9 +41,10 @@ public class FornecedorDAO implements ICRUD<Fornecedor> {
     }
 
     @Override
-    public void delete(Fornecedor obj) {
+    public void delete(Vendedor obj) {
         try {
             em.getTransaction().begin();
+            obj = retrivetbyId(obj.getPkvendedores());
             em.remove(obj);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -53,25 +55,25 @@ public class FornecedorDAO implements ICRUD<Fornecedor> {
     }
 
     @Override
-    public List<Fornecedor> retrivetAll() {
-        String consulta = "select f from Fornecedor f";
-        TypedQuery<Fornecedor> query;
+    public List<Vendedor> retrivetAll() {
+        String consulta = "select p from Produto p";
+        TypedQuery<Vendedor> query;
 
-        query = em.createQuery(consulta, Fornecedor.class);
+        query = em.createQuery(consulta, Vendedor.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Fornecedor retrivetbyId(Integer id) {
-        return em.find(Fornecedor.class, id);
+    public Vendedor retrivetbyId(Integer id) {
+        return em.find(Vendedor.class, id);
     }
 
     @Override
-    public List<Fornecedor> retriveByName(String nome) {
-        String consulta = "select c from Fornecedor c where c.nome like :pNome";
+    public List<Vendedor> retriveByName(String nome) {
+        String consulta = "select p from Vendedor p where p.nome like :pNome";
 
-        TypedQuery<Fornecedor> query = em.createQuery(consulta, Fornecedor.class);
+        TypedQuery<Vendedor> query = em.createQuery(consulta, Vendedor.class);
 
         query.setParameter("pNome", "%" + nome + "%");
 
@@ -79,14 +81,10 @@ public class FornecedorDAO implements ICRUD<Fornecedor> {
     }
 
     @Override
-    public Fornecedor retriveByCNPJOrCPF(String cnpj) {
-        String consulta = "select c from Fornecedor c where c.cnpj like :pCnpj";
-
-        TypedQuery<Fornecedor> query = em.createQuery(consulta, Fornecedor.class);
-
-        query.setParameter("pCnpj", "%" + cnpj + "%");
-
-        return query.getSingleResult();
+    public Vendedor retriveByCNPJOrCPF(String cnpj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

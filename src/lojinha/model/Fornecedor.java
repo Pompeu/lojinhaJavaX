@@ -78,12 +78,12 @@ public class Fornecedor implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public String getNomeFantasia() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nome = nomeFantasia;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public List<TelefoneFornecedor> getTelefonefornecedoresList() {

@@ -12,14 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/controller/FXMLProdutoController.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/FornecedorDAO.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/DAO.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/controller/FXMLVendedorController.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/dao/RefletionObjeto.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/model/validator/Validador.java</file>
-            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/test/testes/DAO/TestarNoation.java</file>
             <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/lojinha/Main.java</file>
+            <file>file:/home/pompeu/NetBeansProjects/lojinhaJavaX/src/META-INF/persistence.xml</file>
         </group>
     </open-files>
 </project-private>

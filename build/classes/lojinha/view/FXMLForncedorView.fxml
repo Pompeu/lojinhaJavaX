@@ -20,13 +20,13 @@
       <TextField fx:id="tfNomeFantasia" layoutX="13.0" layoutY="90.0" prefHeight="25.0" prefWidth="375.0" />
       <TextField fx:id="tfCNPJ" layoutX="403.0" layoutY="31.0" />
       <TextField fx:id="tfComplemento" layoutX="16.0" layoutY="160.0" prefHeight="25.0" prefWidth="375.0" />
-      <ComboBox fx:id="cbEstados" layoutX="610.0" layoutY="160.0" prefHeight="25.0" prefWidth="119.0" promptText="Estados" />
-      <TextField fx:id="tfCidade" layoutX="412.0" layoutY="158.0" />
+      <ComboBox fx:id="cbEstados" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="119.0" promptText="Estados" />
+      <TextField fx:id="tfCidade" layoutX="410.0" layoutY="158.0" />
       <TextField fx:id="tfLogradouro" layoutX="18.0" layoutY="211.0" prefHeight="25.0" prefWidth="375.0" />
-      <TextField fx:id="tfBairro" layoutX="416.0" layoutY="212.0" />
-      <TextField fx:id="tfCep" layoutX="606.0" layoutY="214.0" />
-      <Button fx:id="btnAddEndereco" layoutX="18.0" layoutY="251.0" mnemonicParsing="false" text="Adicionar Endereco" />
-      <Button fx:id="btnRemoveEndereco" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" text="Remover Endereço" />
+      <TextField fx:id="tfBairro" layoutX="413.0" layoutY="212.0" />
+      <TextField fx:id="tfCep" layoutX="414.0" layoutY="264.0" />
+      <Button fx:id="btnAddEndereco" layoutX="18.0" layoutY="261.0" mnemonicParsing="false" text="Adicionar Endereco" />
+      <Button fx:id="btnRemoveEndereco" layoutX="200.0" layoutY="261.0" mnemonicParsing="false" text="Remover Endereço" />
       <TableView fx:id="tbEnderecos" layoutX="17.0" layoutY="320.0" prefHeight="148.0" prefWidth="1137.0" tableMenuButtonVisible="true">
         <columns>
           <TableColumn fx:id="tcComplemento" prefWidth="218.0" text="complemento" />
@@ -42,10 +42,10 @@
       </TableView>
       <Label layoutX="18.0" layoutY="134.0" text="Complemento" />
       <Label layoutX="18.0" layoutY="186.0" text="Logradouro" />
-      <Label layoutX="414.0" layoutY="132.0" text="Cidade" />
+      <Label layoutX="410.0" layoutY="132.0" text="Cidade" />
       <Label layoutX="417.0" layoutY="192.0" text="Bairro" />
-      <Label layoutX="613.0" layoutY="188.0" text="CEP" />
-      <Label layoutX="610.0" layoutY="142.0" text="Estado" />
+      <Label layoutX="417.0" layoutY="242.0" text="CEP" />
+      <Label layoutX="409.0" layoutY="70.0" text="Estado" />
       <Label layoutX="24.0" layoutY="511.0" text="DDD" />
       <Label layoutX="147.0" layoutY="510.0" text="Numero" />
       <Text layoutX="18.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabela de Enderecos" />
@@ -60,6 +60,17 @@
         </columns>
       </TableView>
       <Button fx:id="btnGravar" layoutX="755.0" layoutY="620.0" mnemonicParsing="false" text="Gravar Fornecedor" />
-      <Button fx:id="btnBuscar" layoutX="585.0" layoutY="30.0" mnemonicParsing="false" text="Bucar Por CNPJ" />
+      <Button fx:id="btnBuscar" layoutX="583.0" layoutY="30.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Bucar Por CNPJ" />
+      <TableView fx:id="tbFonecedores" layoutX="727.0" layoutY="107.0" prefHeight="200.0" prefWidth="390.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="tcNome" prefWidth="385.0" text="Nome Fantasia" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TextField fx:id="tfBuscar" layoutX="725.0" layoutY="71.0" prefHeight="25.0" prefWidth="282.0" />
+      <Button fx:id="btnBuscarRazao" layoutX="1050.0" layoutY="68.0" mnemonicParsing="false" text="Buscar" />
+      <Text layoutX="727.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar Por Nome Fantasia" />
    </children>
 </AnchorPane>

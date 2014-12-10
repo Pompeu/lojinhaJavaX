@@ -28,8 +28,7 @@ import lojinha.model.Estados;
 import lojinha.model.Fornecedor;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneFornecedor;
-import lojinha.model.dao.FornecedorDAO;
-import lojinha.model.dao.ICRUD;
+import lojinha.model.dao.DAO;
 
 /**
  * FXML Controller class
@@ -95,7 +94,17 @@ public class FXMLForncedorController implements Initializable {
     @FXML
     private Button btnBuscar;
     private Fornecedor fornecedor = new Fornecedor();
-    private ICRUD<Fornecedor> icrud;
+    private DAO<Fornecedor> icrud;
+    @FXML
+    private TableView<Fornecedor> tbFonecedores;
+    private final ObservableList<Fornecedor> listaFonercedores = FXCollections.observableArrayList();
+    private List<Fornecedor> fornecedores;
+    @FXML
+    private TableColumn tcNome;
+    @FXML
+    private TextField tfBuscar;
+    @FXML
+    private Button btnBuscarRazao;
 
     /**
      * Initializes the controller class.
@@ -116,13 +125,13 @@ public class FXMLForncedorController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (refirifcaEnderecoRepetido(tfCep.getText(), tfLogradouro.getText())) {
-                            listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
+                    listaEnderecos.add(new EnderecoFornecedor(tfComplemento.getText(),
                             tfLogradouro.getText(), tfCidade.getText(),
                             tfBairro.getText(), tfCep.getText(), cbEstados.getValue().toString(),
                             fornecedor));
                 }
 
-                limparCampusEndereco();
+                limparCampus();
             }
 
             boolean refirifcaEnderecoRepetido(String cpf, String logradouro) {
@@ -200,13 +209,17 @@ public class FXMLForncedorController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 fornecedor.setCnpj(tfCNPJ.getText());
-                fornecedor.setNomeFantasia(tfNomeFantasia.getText());
+                fornecedor.setNome(tfNomeFantasia.getText());
                 fornecedor.setRazaoSocial(tfRazaoSocial.getText());
                 fornecedor.setEnderecofornecedorList(listaEnderecos);
                 fornecedor.setTelefonefornecedoresList(listaTelefones);
 
-                icrud = new FornecedorDAO(new JPAUtil().getManager());
-                icrud.create(fornecedor);
+                icrud = new DAO(Fornecedor.class, new JPAUtil().getManager());
+                if (fornecedor.getPkfornecedores() == null) {
+                    icrud.create(fornecedor);
+                } else {
+                    icrud.update(fornecedor);
+                }
             }
         });
 
@@ -214,20 +227,38 @@ public class FXMLForncedorController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                icrud = new FornecedorDAO(new JPAUtil().getManager());
+                icrud = new DAO(Fornecedor.class, new JPAUtil().getManager());
                 fornecedor = icrud.retriveByCNPJOrCPF(tfCNPJ.getText());
+                limparCampus();
                 prencherFormulario(fornecedor);
             }
 
-            private void prencherFormulario(Fornecedor fornecedor) {
-                tfRazaoSocial.setText(fornecedor.getRazaoSocial());
-                tfNomeFantasia.setText(fornecedor.getNomeFantasia());
-                tfCNPJ.setText(fornecedor.getCnpj());
-                listaEnderecos.addAll(fornecedor.getEnderecofornecedorList());
-                listaTelefones.addAll(fornecedor.getTelefonefornecedoresList());
-            }
         });
 
+        tfBuscar.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        icrud = new DAO<>(Fornecedor.class, new JPAUtil().getManager());
+                        fornecedores = icrud.retriveByName(tfBuscar.getText());
+                        listaFonercedores.setAll(fornecedores);
+                    }
+                }).start();
+            }
+        });
+        tbFonecedores.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                fornecedor = tbFonecedores.getSelectionModel().getSelectedItem();
+                limparCampus();
+                prencherFormulario(fornecedor);
+                listaFonercedores.clear();
+            }
+        });
     }
 
     private void initItensList() {
@@ -243,17 +274,35 @@ public class FXMLForncedorController implements Initializable {
         tcEsdado.setCellValueFactory(new PropertyValueFactory("estado"));
         tcComplemento.setCellValueFactory(new PropertyValueFactory("complemento"));
 
+        tcNome.setCellValueFactory(new PropertyValueFactory("nome"));
+
+        tbFonecedores.setItems(listaFonercedores);
         tbEnderecos.setItems(listaEnderecos);
         tbTelefone.setItems(listaTelefones);
     }
 
-    private void limparCampusEndereco() {
-        tfComplemento.setText("");
-        tfLogradouro.setText("");
-        tfCidade.setText("");
-        tfBairro.setText("");
-        tfCep.setText("");
+    private void limparCampus() {
+        tfComplemento.clear();
+        tfLogradouro.clear();
+        tfCidade.clear();
+        tfBairro.clear();
+        tfCep.clear();
         cbEstados.setValue(null);
+
+        tfNumero.clear();
+        tfDDD.clear();
+
+        listaEnderecos.clear();
+        listaTelefones.clear();
+        listaFonercedores.clear();
+    }
+
+    private void prencherFormulario(Fornecedor fornecedor) {
+        tfRazaoSocial.setText(fornecedor.getRazaoSocial());
+        tfNomeFantasia.setText(fornecedor.getNome());
+        tfCNPJ.setText(fornecedor.getCnpj());
+        listaEnderecos.addAll(fornecedor.getEnderecofornecedorList());
+        listaTelefones.addAll(fornecedor.getTelefonefornecedoresList());
     }
 
     private void validarCampus() {
@@ -271,6 +320,7 @@ public class FXMLForncedorController implements Initializable {
         tfDDD.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(3));
         tfNumero.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(9));
 
+        tfBuscar.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(20));
     }
 
 }

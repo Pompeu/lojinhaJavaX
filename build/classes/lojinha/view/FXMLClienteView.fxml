@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="AchorPaneCliente" prefHeight="694.0" prefWidth="597.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLClienteController">
+<AnchorPane id="AnchorPane" fx:id="AchorPaneCliente" prefHeight="694.0" prefWidth="1047.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lojinha.controller.FXMLClienteController">
     <stylesheets>
         <URL value="@fxmlclienteview.css" />
     </stylesheets>
@@ -62,5 +62,13 @@
       <Text layoutX="25.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DDD" />
       <Text layoutX="110.0" layoutY="524.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero" />
       <Button fx:id="btnBuscar" layoutX="210.0" layoutY="214.0" mnemonicParsing="false" text="Buscar Por CNPJ" />
+      <Button fx:id="btnBuscarRazao" layoutX="921.0" layoutY="96.0" mnemonicParsing="false" text="Buscar" />
+      <TextField fx:id="tfBucar" layoutX="600.0" layoutY="97.0" prefHeight="25.0" prefWidth="311.0" />
+      <Text layoutX="600.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bucar por Rasao Social" />
+      <TableView fx:id="tbCliente" layoutX="600.0" layoutY="142.0" prefHeight="200.0" prefWidth="419.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="tcRazao" prefWidth="402.0" text="Razao Social" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

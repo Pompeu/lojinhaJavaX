@@ -91,7 +91,7 @@ public class TesteDAOGenerico {
     @Test
     public void deveRecuperarUmVendedorPeloCPF() {
         DAO<Vendedor> dao = new DAO<>(Vendedor.class, new JPAUtil().getManager());
-        assertEquals(dao.retriveByCNPJOrCPF("00311960179").getCpf(), "00311960179");
+        assertEquals(dao.retriveByCNPJOrCPF("00311920179").getCpf(), "00311920179");
     }
 
     @Test

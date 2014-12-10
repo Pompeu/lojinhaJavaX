@@ -6,12 +6,12 @@
 package lojinha.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,14 +23,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import lojinha.controller.validator.Validador;
 import lojinha.model.Cliente;
 import lojinha.model.EnderecoCliente;
 import lojinha.model.Estados;
 import lojinha.model.JPA.JPAUtil;
 import lojinha.model.TelefoneCliente;
-import lojinha.model.dao.ClienteDAO;
-import lojinha.model.dao.ICRUD;
+import lojinha.model.dao.NAOUSADOS.ClienteDAO;
+import lojinha.model.dao.DAO;
 
 /**
  * FXML Controller class
@@ -81,8 +82,20 @@ public class FXMLClienteController implements Initializable {
     private TextField tfDDD;
     @FXML
     private Button btnBuscar;
-    private ICRUD<Cliente> crudCliente;
+    private DAO<Cliente> crudCliente;
     private Cliente cliente = new Cliente();
+    @FXML
+    private AnchorPane AchorPaneCliente;
+    @FXML
+    private Button btnBuscarRazao;
+    @FXML
+    private TextField tfBucar;
+    @FXML
+    private TableView<Cliente> tbCliente;
+    private final ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
+    private List<Cliente> clientes;
+    @FXML
+    private TableColumn tcRazao;
 
     /**
      * Initializes the controller class.
@@ -193,12 +206,15 @@ public class FXMLClienteController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 cliente.setCnpj(tfCnpj.getText());
-                cliente.setNomeFantasia(tfNomeFantasia.getText());
+                cliente.setNome(tfNomeFantasia.getText());
                 cliente.setRazaoSocial(tfRazaSocial.getText());
 
-                crudCliente = new ClienteDAO(new JPAUtil().getManager());
-
-                crudCliente.create(cliente);
+                crudCliente = new DAO<>(Cliente.class, new JPAUtil().getManager());
+                if (cliente.getPkcliente() == null) {
+                    crudCliente.create(cliente);
+                } else {
+                    crudCliente.update(cliente);
+                }
 
             }
         });
@@ -206,22 +222,47 @@ public class FXMLClienteController implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                crudCliente = new ClienteDAO(new JPAUtil().getManager());
+                crudCliente = new DAO<>(Cliente.class, new JPAUtil().getManager());
                 cliente = crudCliente.retriveByCNPJOrCPF(tfCnpj.getText());
+                limparCampus();
                 prencherFormulario(cliente);
 
             }
 
-            void prencherFormulario(Cliente cliente) {
+        });
+        tfBucar.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-                tfNomeFantasia.setText(cliente.getNomeFantasia());
-                tfCnpj.setText(cliente.getCnpj());
-                tfRazaSocial.setText(cliente.getRazaoSocial());
-                listaEnderecos.addAll(cliente.getEnderecoClienteList());
-                listaTelefones.addAll(cliente.getTelefoneClienteList());
+            @Override
+            public void handle(KeyEvent event) {
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        crudCliente = new DAO<>(Cliente.class, new JPAUtil().getManager());
+                        clientes = crudCliente.retriveByName(tfBucar.getText());
+                        listaClientes.clear();
+                        listaClientes.addAll(clientes);
+                    }
+                }).start();
+            }
+        });
+
+    
+
+        tbCliente.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (!tbCliente.getSelectionModel().isEmpty()) {
+                    cliente = tbCliente.getSelectionModel().getSelectedItem();
+                    limparCampus();
+                    prencherFormulario(cliente);
+                    listaClientes.clear();
+                }
             }
 
         });
+
     }
 
     private void initTableItens() {
@@ -233,6 +274,9 @@ public class FXMLClienteController implements Initializable {
         tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
         tcLogradouro.setCellValueFactory(new PropertyValueFactory("logradouro"));
 
+        tcRazao.setCellValueFactory(new PropertyValueFactory("nome"));
+
+        tbCliente.setItems(listaClientes);
         tableEnderecos.setItems(listaEnderecos);
         tableTelefone.setItems(listaTelefones);
     }
@@ -246,6 +290,22 @@ public class FXMLClienteController implements Initializable {
         tfDDD.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(2));
         tfNumeroTelefone.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(9));
 
+        tfBucar.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(15));
+
     }
 
+    private void prencherFormulario(Cliente cliente) {
+
+        tfNomeFantasia.setText(cliente.getNome());
+        tfCnpj.setText(cliente.getCnpj());
+        tfRazaSocial.setText(cliente.getRazaoSocial());
+        listaEnderecos.addAll(cliente.getEnderecoClienteList());
+        listaTelefones.addAll(cliente.getTelefoneClienteList());
+    }
+
+    private void limparCampus() {
+        listaEnderecos.clear();
+        listaTelefones.clear();
+
+    }
 }

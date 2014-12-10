@@ -15,9 +15,9 @@ import javax.persistence.Id;
  *
  * @author pompeu
  */
-public class RefletionObjeto {
+public class PegarPkKeyTempoExecucao {
 
-    private RefletionObjeto() {
+    private PegarPkKeyTempoExecucao() {
     }
     
     public static Integer getIdObjeto(Object object) {
@@ -30,7 +30,7 @@ public class RefletionObjeto {
                     try {
                         id = (Integer) atributo.get(object);
                     } catch (IllegalArgumentException | IllegalAccessException ex) {
-                        Logger.getLogger(RefletionObjeto.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PegarPkKeyTempoExecucao.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
