@@ -83,11 +83,9 @@ public class FXMLClienteController implements Initializable {
     @FXML
     private Button btnBuscar;
     private DAO<Cliente> crudCliente;
+    private DAO<EnderecoCliente> crudEndereco;
+    private DAO<TelefoneCliente> crudTelefone;
     private Cliente cliente = new Cliente();
-    @FXML
-    private AnchorPane AchorPaneCliente;
-    @FXML
-    private Button btnBuscarRazao;
     @FXML
     private TextField tfBucar;
     @FXML
@@ -144,7 +142,8 @@ public class FXMLClienteController implements Initializable {
             public void handle(ActionEvent event) {
                 EnderecoCliente ec = tableEnderecos.getSelectionModel().getSelectedItem();
                 listaEnderecos.remove(ec);
-                cliente.getEnderecoClienteList().remove(ec);
+                crudEndereco = new DAO<EnderecoCliente>(EnderecoCliente.class, new JPAUtil().getManager());
+                crudEndereco.delete(ec);
             }
         });
 
@@ -189,7 +188,8 @@ public class FXMLClienteController implements Initializable {
             public void handle(ActionEvent event) {
                 TelefoneCliente tc = tableTelefone.getSelectionModel().getSelectedItem();
                 listaTelefones.remove(tc);
-                cliente.getTelefoneClienteList().remove(tc);
+                crudTelefone = new DAO<TelefoneCliente>(TelefoneCliente.class, new JPAUtil().getManager());
+                crudTelefone.delete(tc);
             }
         });
         tableTelefone.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -208,7 +208,8 @@ public class FXMLClienteController implements Initializable {
                 cliente.setCnpj(tfCnpj.getText());
                 cliente.setNome(tfNomeFantasia.getText());
                 cliente.setRazaoSocial(tfRazaSocial.getText());
-
+                cliente.setEnderecoClienteList(listaEnderecos);
+                cliente.setTelefoneClienteList(listaTelefones);
                 crudCliente = new DAO<>(Cliente.class, new JPAUtil().getManager());
                 if (cliente.getPkcliente() == null) {
                     crudCliente.create(cliente);
@@ -247,8 +248,6 @@ public class FXMLClienteController implements Initializable {
             }
         });
 
-    
-
         tbCliente.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -283,7 +282,7 @@ public class FXMLClienteController implements Initializable {
 
     private void validarCampus() {
         tfRazaSocial.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
-        tfLogradouro.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
+        tfLogradouro.addEventFilter(KeyEvent.KEY_TYPED, Validador.lograroudo(30));
         tfNomeFantasia.addEventFilter(KeyEvent.KEY_TYPED, Validador.nome(30));
 
         tfCnpj.addEventFilter(KeyEvent.KEY_TYPED, Validador.numeros(14));

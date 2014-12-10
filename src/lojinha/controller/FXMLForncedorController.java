@@ -95,6 +95,9 @@ public class FXMLForncedorController implements Initializable {
     private Button btnBuscar;
     private Fornecedor fornecedor = new Fornecedor();
     private DAO<Fornecedor> icrud;
+    private DAO<TelefoneFornecedor> icrudTDao;
+    private DAO<EnderecoFornecedor> icrudEDao;
+
     @FXML
     private TableView<Fornecedor> tbFonecedores;
     private final ObservableList<Fornecedor> listaFonercedores = FXCollections.observableArrayList();
@@ -152,7 +155,8 @@ public class FXMLForncedorController implements Initializable {
             public void handle(ActionEvent event) {
                 EnderecoFornecedor ef = tbEnderecos.getSelectionModel().getSelectedItem();
                 listaEnderecos.remove(ef);
-                fornecedor.getEnderecofornecedorList().remove(ef);
+                icrudEDao = new DAO<EnderecoFornecedor>(EnderecoFornecedor.class, new JPAUtil().getManager());
+                icrudEDao.delete(ef);
             }
         });
 
@@ -202,7 +206,8 @@ public class FXMLForncedorController implements Initializable {
             public void handle(ActionEvent event) {
                 TelefoneFornecedor tf = tbTelefone.getSelectionModel().getSelectedItem();
                 listaTelefones.remove(tf);
-                fornecedor.getTelefonefornecedoresList().remove(tf);
+                icrudTDao = new DAO<TelefoneFornecedor>(TelefoneFornecedor.class, new JPAUtil().getManager());
+                icrudTDao.delete(tf);
             }
         });
         btnGravar.setOnAction(new EventHandler<ActionEvent>() {

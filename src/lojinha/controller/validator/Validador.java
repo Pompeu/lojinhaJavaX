@@ -60,7 +60,26 @@ public class Validador {
             }
         };
     }
-    
+     public static EventHandler lograroudo(final Integer max_Lengh) {
+        return new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                keyHandle((KeyEvent) event);
+            }
+
+            public void keyHandle(KeyEvent e) {
+                TextField txt_TextField = (TextField) e.getSource();
+                if (txt_TextField.getText().length() >= max_Lengh) {
+                    e.consume();
+                }
+                if (e.getCharacter().matches("[a-zA-Z1-9-, ]")) {
+
+                } else {
+                    e.consume();
+                }
+            }
+        };
+    }
     public static EventHandler valores(final Integer max_Lengh) {
         return new EventHandler() {
             @Override
